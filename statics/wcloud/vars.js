@@ -1,0 +1,5 @@
+var FACEBOOK_APP_ID = '494300367341481';
+var GOOGLE_CLIENT_ID = '966438460113-h10f1svbu0n05taa5n492u1sjnvd4br1.apps.googleusercontent.com';
+var IMGUR_CLIENT_ID = 'f6042179402808d';
+
+var DONATE_HTML = '';

@@ -1,0 +1,128 @@
+/* Other-Sources: http://www.fontpalace.com/ */
+
+/* Fonts:Liberation */
+@font-face {
+  font-family: "Liberation Serif";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../fonts/liberation_serif/LiberationSerif-Regular.ttf);
+}
+@font-face {
+  font-family: "Liberation Serif";
+  font-style: normal;
+  font-weight: 700;
+  src: url(../../fonts/liberation_serif/LiberationSerif-Bold.ttf);
+}
+
+
+
+/* Font: Candara; (c)2005 Microsoft */
+@font-face {
+  font-family: "Candara";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../fonts/Candara-Regular.ttf);
+}
+/* Font: Verdana; (c)1996 Microsoft */
+@font-face {
+  font-family: "Verdana";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../fonts/Verdana.ttf);
+}
+/* Font: Trebuchet MS; (c)1996 Microsoft */
+@font-face {
+  font-family: "Trebuchet MS";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../fonts/TrebuchetMS.ttf);
+}
+/* Font: Impact; (c)1991-1996 The Monotype Corporation */
+@font-face {
+  font-family: "Impact";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../fonts/Impact.ttf);
+}
+
+
+
+
+/* Font: chlorinar */
+@font-face {
+  font-family: "Chlorinar";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../fonts/chlorinar/CHLORINR.TTF);
+}
+
+/* Font: LDFComicSans */
+@font-face {
+  font-family: "LDFComicSans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(../../fonts/ldfcomicsans/LDFComicSans.ttf);
+}
+
+
+
+/* -=-=- Google-sources -=-=- */
+/* Font: Open Sans */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../../fonts/OpenSansSemiBold.woff) format('woff');
+}
+
+/* Font: Droid */
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Droid Sans mono'), local('Droid-Sans-mono'), url(../../fonts/droidsansmono.woff) format('woff');
+}
+
+/* Font: FingerPaint */
+@font-face {
+  font-family: 'FingerPaint';
+  font-style: normal;
+  font-weight: 600;
+  src: local('FingerPaint Regular'), local('FingerPaint-Regular'), url(../../fonts/FingerPaint-Regular.woff) format('woff');
+}
+
+/* Font: JollyLodger */
+@font-face {
+  font-family: 'JollyLodger';
+  font-style: normal;
+  font-weight: 600;
+  src: local('JollyLodger'), local('JollyLodger'), url(../../fonts/JollyLodger.woff) format('woff');
+}
+
+/* Font: JollyLodger */
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(../../fonts/UbuntuMono-Regular.woff) format('woff');
+}
+
+/* Font: Libre Baskerville */
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Libre Baskerville'), local('LibreBaskerville-Regular'), url(../../fonts/LibreBaskerville-Regular.woff) format('woff');
+}
+
+/* Font: Lobster */
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Lobster'), local('Lobster'), url(../../fonts/Lobster.woff) format('woff');
+}
+
+
+
+/* Font: ____ */

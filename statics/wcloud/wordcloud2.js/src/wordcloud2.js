@@ -346,9 +346,6 @@ if (!window.clearImmediate) {
         break;
     }
 
-    console.log('settings');
-    console.log(settings);
-
     if( "object" == typeof settings.color
       && settings.color.flag === 'custom-textcolor'
       && settings.color.type === 'palette' 

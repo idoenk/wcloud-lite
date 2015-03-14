@@ -7,7 +7,7 @@ var SourceDialogView = function SourceDialogView(opts) {
     menuElement: 'wc-source-menu',
     selectionElement: 'wc-source-selection',
     startBtnElement: 'wc-source-start-btn',
-    dismissBtnElement: 'wc-source-dismiss-btn',
+    // dismissBtnElement: 'wc-source-dismiss-btn',
     panelContainerElement: 'wc-source-panels',
     optionBtnElement: 'wc-source-option-btn',
     texttypeToggleElement: 'wc-panel-texttype',
@@ -31,7 +31,7 @@ var SourceDialogView = function SourceDialogView(opts) {
   this.menuElement.addEventListener('click', this);
   this.selectionElement.addEventListener('change', this);
   this.startBtnElement.addEventListener('click', this);
-  this.dismissBtnElement.addEventListener('click', this);
+  // this.dismissBtnElement.addEventListener('click', this);
   this.panelContainerElement.addEventListener('submit', this);
   this.aboutBtnElement.addEventListener('click', this);
   this.optionBtnElement.addEventListener('click', this);
@@ -88,9 +88,9 @@ SourceDialogView.prototype.handleEvent = function sd_handleEvent(evt) {
       this.currentPanel.submit();
       break;
 
-    case this.dismissBtnElement:
-      top.location.href = SITE_URL;
-      break;
+    // case this.dismissBtnElement:
+    //   top.location.href = SITE_URL;
+    //   break;
 
     case this.texttypeToggleElement: case this.texttypeToggle2Element:
       var target = (evt.currentTarget.getAttribute('id') == 'wc-panel-texttype' ? '#additional-wordlist-prop' : '#additional-panel-wordlist-prop');

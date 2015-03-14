@@ -55,7 +55,7 @@ document.webL10n = (function(window, document, undefined) {
    *   gDEBUG == 2: display all console messages
    */
 
-  var gDEBUG = 1;
+  var gDEBUG = ("undefined" != typeof _DEBUG_ && _DEBUG_);
 
   function consoleLog(message) {
     if (gDEBUG >= 2) {

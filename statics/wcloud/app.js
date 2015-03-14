@@ -26,7 +26,7 @@ var WordCloudApp = function WordCloudApp() {
     return;
   }
   // show activity in console log
-  this.DEBUG_LOG = 1;
+  this.DEBUG_LOG = ("undefined" != typeof _DEBUG_ && _DEBUG_);
 
   this.isSupported = true;
   this.logAction('WordCloudApp::isSupported::true');

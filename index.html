@@ -29,6 +29,7 @@
 
   <script type="text/javascript">
   var 
+    _DEBUG_ = !1,
     ASSET_WCLOUD_URI = "statics/wcloud/",
     SITE_URL = '/';
   </script>
@@ -51,7 +52,6 @@
   <script src="statics/wcloud/wordfreq/src/wordfreq.worker.js?_=asdasd" defer></script>
 
   <!-- build:js assets/app.min.js -->
-  <script src="statics/wcloud/vars.js" defer></script>
   <script src="statics/wcloud/vars.js" defer></script>
   <script src="statics/wcloud/web-l10n/l10n.js" defer></script>
   <script src="statics/wcloud/wordfreq/src/wordfreq.js" defer></script>
@@ -395,7 +395,9 @@
             </select>
           </div>
 
-          <button data-l10n-id="source-dialog-dismiss-btn" id="wc-source-dismiss-btn" class="btn btn-default"></button>
+          <!-- 
+          <button data-l10n-id="source-dialog-dismiss-btn" id="wc-source-dismiss-btn" class="btn btn-default"></button> 
+          -->
           <button data-l10n-id="source-dialog-start-btn" id="wc-source-start-btn" class="btn btn-primary"></button>
         </div>
       </div><!-- /.modal-content -->

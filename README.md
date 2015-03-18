@@ -1,7 +1,7 @@
 # HTML5 Word Cloud (Forked)
 [Forked from timdream](https://github.com/timdream/wordfreq)
 
-**View Site**(http://idoenk.github.io/wcloud-lite)
+[**View Site**](http://idoenk.github.io/wcloud-lite)
 
 
 ## What's Different
@@ -10,8 +10,8 @@ It allow you to enhance the way you input the words, using list of separated wor
 
 
 
-## Released under [the MIT license](./LICENSE)
-The MIT License (MIT)
+## LICENSE
+[The MIT License (MIT)](./LICENSE)
 
 Copyright (c) 2015 tforte
 

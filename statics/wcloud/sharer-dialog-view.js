@@ -36,6 +36,7 @@ var SharerDialogView = function SharerDialogView(opts) {
   this.plurkStatusElement.addEventListener('click', this);
 
   this.doneBtnElement.addEventListener('click', this);
+  this.closeBtnModal.addEventListener('click', this);
   this.reUploadBtnElement.addEventListener('click', this);
 
   if (window.URL) {
@@ -319,6 +320,7 @@ SharerDialogView.prototype.handleEvent = function sdv_handleEvent(evt) {
       break;
 
     case this.doneBtnElement:
+    case this.closeBtnModal:
       this.close();
       break;
   }

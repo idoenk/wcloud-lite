@@ -362,6 +362,7 @@ WordCloudApp.prototype.stopHandleData = function wca_stopHandleData() {
 };
 WordCloudApp.prototype.handleList = function wca_handleList(list, vol) {
   this.logAction('WordCloudApp::handleList', list.length);
+  this.logAction('WordCloudApp::handleList vol=', vol);
 
   if (!list.length) {
     this.switchUIState(this.UI_STATE_ERROR_WITH_DASHBOARD);
@@ -373,6 +374,8 @@ WordCloudApp.prototype.handleList = function wca_handleList(list, vol) {
   this.switchUIState(this.UI_STATE_DASHBOARD);
 
   this.data.list = list;
+  this.logAction('WordCloudApp::handleList list=');
+  console.log(list);
 
   if( "undefined" == typeof this.data.gridSize)
     this.data.gridSize = 5;
@@ -420,6 +423,7 @@ WordCloudApp.prototype.getWordCloudOption = function wca_getWordCloudOption() {
 
   // intercept localstorage Options 
   var dataLSOptions = this.getStorageOptions();
+  console.log(dataLSOptions);
   if( "undefined" != typeof dataLSOptions.theme && !isNaN(dataLSOptions.theme) )
     this.data.theme = parseInt(dataLSOptions.theme);
 

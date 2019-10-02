@@ -3,6 +3,7 @@
 // Super light-weight prototype-based objects and inherences
 var View = function View() { };
 View.prototype.load = function v_load(properties, defaultProperties) {
+  var el = null;
   properties = properties || {};
   for (var name in defaultProperties) {
     if (name in this)
@@ -15,6 +16,10 @@ View.prototype.load = function v_load(properties, defaultProperties) {
       this[name] = (typeof this[name] === 'string') ?
         document.getElementById(this[name]) : this[name];
     }
+    else if (/Modal$/.test(name)){
+
+      this[name] = document.querySelector(this[name]);
+    }
   }
 };
 View.prototype.show = function v_show(currentState, nextState) {
@@ -26,18 +31,33 @@ View.prototype.show = function v_show(currentState, nextState) {
   this.element.removeAttribute('hidden');
 
   if ('afterShow' in this) {
+
     this.afterShow.apply(this, arguments);
   }
-  
 
-  var $el = $(this.element);
-  var registered_name_drag_modals = ['list-dialog', 'about-dialog', 'option-dialog'];
+  var $el = $(this.element),
+      registered_name_drag_modals = ['list-dialog', 'about-dialog', 'option-dialog']
+  ;
+
   if(this.name && registered_name_drag_modals.indexOf(this.name) !== -1 && $el.length && !$el.hasClass('eventdrag')){
-    var pos = $el.position();
+    var $dialog = $el.find('.modal-dialog'),
+        dHeight = $dialog.outerHeight(),
+        treshold = 80,
+        pos = $dialog.position()
+    ;
+    if (this.name == 'option-dialog')
+      treshold = 150;
 
-    $el.addClass('eventdrag').udraggable({handle: '.modal-header,.modal-footer'});
-    if( parseFloat(pos.top) < 0 )
-      $el.css('top', '2%');
+
+    $el.find('.modal-dialog').draggable({
+      opacity: .65,
+      handle: ".modal-header, .modal-footer"
+    }).addClass('eventdrag');
+
+    if (dHeight > 0)
+      $el.css('min-height', (dHeight+treshold)+'px');
+
+    $dialog.css('top', 0);
   }
 
   return true;
@@ -140,11 +160,13 @@ var ListDialogView = function ListDialogView(opts) {
     element: 'wc-list-dialog',
     textElement: 'wc-list-edit',
     cancelBtnElement: 'wc-list-cancel-btn',
-    confirmBtnElement: 'wc-list-confirm-btn'
+    confirmBtnElement: 'wc-list-confirm-btn',
+    closeBtnModal: '#wc-list-dialog button.close'
   });
 
   this.cancelBtnElement.addEventListener('click', this);
   this.confirmBtnElement.addEventListener('click', this);
+  this.closeBtnModal.addEventListener('click', this);
 };
 ListDialogView.prototype = new View();
 ListDialogView.prototype.beforeShow = function ldv_beforeShow() {
@@ -156,13 +178,16 @@ ListDialogView.prototype.afterShow = function ldv_afterShow() {
   this.textElement.focus();
 };
 ListDialogView.prototype.handleEvent = function ldv_handleEvent(evt) {
-  switch (evt.target) {
+
+  // switch (evt.target) {
+  switch (evt.currentTarget) {
     case this.confirmBtnElement:
       this.submit();
 
       break;
 
     case this.cancelBtnElement:
+    case this.closeBtnModal:
       this.close();
 
       break;
@@ -198,13 +223,15 @@ var AboutDialogView = function AboutDialogView(opts) {
     donateElement: 'wc-about-donate',
     donateContentElement: 'wc-about-donate-content',
     contentElement: 'wc-about-content',
-    closeBtnElement: 'wc-about-close-btn'
+    closeBtnElement: 'wc-about-close-btn',
+    closeBtnModal: '#wc-about-dialog button.close'
   });
 
   this.loaded = false;
 
   this.closeBtnElement.addEventListener('click', this);
   this.contentElement.addEventListener('click', this);
+  this.closeBtnModal.addEventListener('click', this);
   this.donateContentElement.addEventListener('submit', this);
   document.addEventListener('localized', this);
 };
@@ -284,6 +311,7 @@ AboutDialogView.prototype.handleEvent = function adv_handleEvent(evt) {
       break;
 
     case this.closeBtnElement:
+    case this.closeBtnModal:
       this.close();
 
       break;
@@ -299,7 +327,8 @@ var OptionDialogView = function OptionDialogView(opts){
     element: 'wc-option-dialog',
     contentElement: 'wc-option-content',
     closeBtnElement: 'wc-option-close-btn',
-    applyBtnElement: 'wc-option-apply-btn'
+    applyBtnElement: 'wc-option-apply-btn',
+    closeBtnModal: '#wc-option-dialog button.close'
   });
 
   this.loaded = false;
@@ -307,6 +336,7 @@ var OptionDialogView = function OptionDialogView(opts){
   this.closeBtnElement.addEventListener('click', this);
   this.applyBtnElement.addEventListener('click', this);
   this.contentElement.addEventListener('click', this);
+  this.closeBtnModal.addEventListener('click', this);
 
   document.addEventListener('localized', this);
 
@@ -396,16 +426,25 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
   };
 
   var toggle_themes = function($btn){
-    var $me = $btn;
-    var $par = $me.closest('.controls');
-    var $partheme = $par.find('.wrap-themes-outer');
-    $partheme.find('.itemwrap').addClass('hide');
-    if( $me.val() == 'custom' ){
-      $partheme.find('.wrap-custom').removeClass('hide')
-    }
-    else{
-      $partheme.find('.wrap-preset').removeClass('hide')
-    }
+    var $par = $btn.closest('.controls'),
+        $tabb = $btn.closest('.tabbable'),
+        mode = $btn.data('name'),
+        $partheme = $par.find('.wrap-themes-outer')
+    ;
+    if (!mode) 
+      return !1;
+
+    // reset hide all
+    $partheme
+      .find('.itemwrap')
+      .addClass('hide');
+
+    $partheme.find('.wrap-'+mode).removeClass('hide');
+
+    setTimeout(function(){
+      $tabb
+        .css('height', $partheme.height()+'px');
+    }, 12);
   };
 
 
@@ -423,12 +462,14 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
     initiate_colorpick($dialog.find('#btn-pickcolor-dualtone-otherword'));
 
     // build DOM for palette preset
-    var $target = $dialog.find('.wrap-preset .wrap-themes');
-    var tplthemes = '';
-    var tplrandomcolor = '';
-    var subtpltheme = '';
-    var subtpl_backgr = '';
-    var colorset = false;
+    var $target = $dialog.find('.wrap-preset .wrap-themes'),
+        tplthemes = '',
+        tplrandomcolor = '',
+        subtpltheme = '',
+        subtpl_backgr = '',
+        colorset = false
+    ;
+
     for(var i=0; i<app.themes.length; i++){
       if(app.data.custom_themeIndex == i)
         continue;
@@ -461,7 +502,10 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
       }
 
       tplthemes += '</div>';
-      tplrandomcolor += '<button type="button" class="btn btn-small btn-detailcolor" title="Detail Color Code"><i class="icon-th-list"></i></button>';
+      tplrandomcolor += ''
+        +'<button type="button" class="btn btn-sm btn-default btn-detailcolor" title="Detail Color Code">'
+          +'<i class="fa fa-bars" aria-hidden="true"></i>'
+        +'</button>';
       tplrandomcolor += '</label>';
     }
     $target.html( tplthemes );
@@ -473,9 +517,18 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
 
 
     // themes toogle
-    $('#rad1, #rad2').each(function(){
-      $(this).click(function(){
-        toggle_themes( $(this) );
+    $dialog.find('ul.menu-themes>li>a').each(function(){
+      $(this).click(function(e){
+        e.preventDefault();
+        let $me = $(this),
+            $ul = $me.closest('ul')
+        ;
+        console.log($me.data());
+        $ul.find('li').removeClass('active');
+
+        toggle_themes($me);
+        $me.closest('li')
+          .addClass('active');
       })
     });
 
@@ -683,12 +736,20 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
   }
 
 
+  console.log('options.custom_themeIndex='+options.custom_themeIndex);
+  console.log('options.theme='+options.theme);
   if( options.custom_themeIndex && options.custom_themeIndex == options.theme ){
-    $dialog.find('#rad2').trigger('click');
+    // $dialog.find('#rad2').trigger('click');
+    $dialog
+      .find('ul.menu-themes>li>a[data-name="custom"]')
+      .trigger('click');
 
-    var custom = options.custom;
-    var customcolor = (custom ? custom.color : {});
-    var cpfield = 'btn-pickcolor';
+    var custom = options.custom,
+        customcolor = (custom ? custom.color : {}),
+        cpfield = 'btn-pickcolor',
+        $fontlist = $dialog.find('#font-custom'),
+        fontparts = String(custom.fontFamily).split(",")
+    ;
 
     // background
     if( "undefined" != typeof cp[cpfield] ){
@@ -697,38 +758,38 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
     }
 
     // font
-    var $fontlist = $dialog.find('#font-custom');
-    var fontparts = String(custom.fontFamily).split(",");
-    $fontlist.prop('selected', false);
-    $fontlist.find('option[value*="'+String(fontparts[0]).replace(/\"/g,'')+'"]').prop('selected', true);
+    if ($fontlist.length){
+      $fontlist.prop('selected', false);
+      $fontlist.find('option[value*="'+String(fontparts[0]).replace(/\"/g,'')+'"]').prop('selected', true);
+    }
     
-    if( custom.textcolorType == 'random' ){
+    if (custom.textcolorType == 'random'){
       $dialog.find('#fcolor-random').trigger('click');
-      if( custom.textcolorRandomName ){
+      if (custom.textcolorRandomName){
         $dialog.find('[name=randomcolor]').prop('checked', false);
         $dialog.find('[name=randomcolor][value="'+custom.textcolorRandomName+'"]').prop('checked', true);
       }
     }
     else{
       $dialog.find('#fcolor-custom').trigger('click');
-      if( !(customcolor && customcolor.type) )
+      if (customcolor && customcolor.type)
         customcolor = {type:'dualtone'};
 
 
       if( customcolor.type == 'dualtone' ){
         // dualtone should be the first tab
 
-        if( customcolor.topword ){
+        if (customcolor.topword){
           cp['btn-pickcolor-dualtone-topword'] && 
           cp['btn-pickcolor-dualtone-topword'].setHex(customcolor.topword);
           $dialog.find('#value-pickcolor-topword').val(String(customcolor.topword).replace(/\#/g,''));
         }
-        if( customcolor.topword ){
+        if (customcolor.topword){
           cp['btn-pickcolor-dualtone-otherword'] &&
           cp['btn-pickcolor-dualtone-otherword'].setHex(customcolor.otherword);
           $dialog.find('#value-pickcolor-otherword').val(String(customcolor.otherword).replace(/\#/g,''));
         }
-        if( custom.backgroundColor ){
+        if (custom.backgroundColor){
           cp['btn-pickcolor'] &&
           cp['btn-pickcolor'].setHex(custom.backgroundColor);
           $dialog.find('#value-pickcolor-background').val(String(custom.backgroundColor).replace(/\#/g,''));
@@ -736,8 +797,8 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
         if( customcolor.backgroundColor )
           $dialog.find('#nword').val(customcolor.nword);
 
-        if( customcolor.wordlist && customcolor.wordlist.length ){
-          if( !$dialog.find('#specific-word').is(':checked') )
+        if (customcolor.wordlist && customcolor.wordlist.length){
+          if (!$dialog.find('#specific-word').is(':checked'))
             $dialog.find('#specific-word').trigger('click');
           $dialog.find('#specific-wordlist').val(customcolor.wordlist.join('\n'));
         }
@@ -745,18 +806,21 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
       else if( customcolor.type == 'palette' ){
         // someother tab (N/A)
         $dialog.find('.wrap-color-custom .nav-tabs a[href="#lB"]').trigger('click');
-        var $ncolor = $dialog.find('#ncolor');
-        var ccolorset = customcolor.ccolorset||[];
-        var icolor = 0;
+        var $ncolor = $dialog.find('#ncolor'),
+            ccolorset = customcolor.ccolorset||[],
+            icolor = 0
+        ;
 
         $ncolor.find('[selected]').prop('selected', false);
         $ncolor.find('[value='+custom.ncolor+']').prop('selected', true);
-        if( ccolorset.length )
+        if (ccolorset.length)
           $dialog.find('#wrap-pane1B .color-value').each(function(i, el){
             icolor++;
-            var $me = $(this);
-            var $item = $me.closest('.item');
-            var cpfield = '';
+
+            var $me = $(this),
+                $item = $me.closest('.item'),
+                cpfield = ''
+            ;
             if( ccolorset[i] ){
               $me.val( ccolorset[i] );
               cpfield = String($item.find('.btn-pickcolor').attr('id'));
@@ -766,7 +830,7 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
               $item.removeClass('hide');
             }
 
-            if( icolor > custom.ncolor ){
+            if (icolor > custom.ncolor){
               $item.addClass('hide');
               return true;
             }
@@ -775,7 +839,10 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
     }
   }
   else{
-    $dialog.find('#rad1').trigger('click');
+    // $dialog.find('#rad1').trigger('click');
+    $dialog
+      .find('ul.menu-themes>li>a[data-name="preset"]')
+      .trigger('click');
   }
 };
 OptionDialogView.prototype.handleEvent = function odv_handleEvent(evt) {
@@ -791,6 +858,7 @@ OptionDialogView.prototype.handleEvent = function odv_handleEvent(evt) {
     break;
 
     case this.closeBtnElement:
+    case this.closeBtnModal:
       this.close();
 
       break;

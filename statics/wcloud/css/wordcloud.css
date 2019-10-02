@@ -239,9 +239,14 @@ textarea.wordlist-spec.code{
     opacity: 0; }
 
 #wc-sharer-img-link {
-  margin-bottom: 20px; }
+  background-color: #ddd;
+  margin-bottom: 20px;
+}
   #wc-sharer-img-link[hidden] {
     display: none; }
+#wc-sharer-img-link > img{
+  min-height: 36px;
+}
 
 #wc-about-icon {
   position: relative;

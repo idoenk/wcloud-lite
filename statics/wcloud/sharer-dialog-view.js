@@ -21,7 +21,8 @@ var SharerDialogView = function SharerDialogView(opts) {
     plurkStatusElement: 'wc-sharer-plurk-status',
 
     reUploadBtnElement: 'wc-sharer-reupload-btn',
-    doneBtnElement: 'wc-sharer-done-btn'
+    doneBtnElement: 'wc-sharer-done-btn',
+    closeBtnModal: '#wc-sharer-dialog button.close'
   });
 
   this.hashTagElement.textContent = this.HASHTAG;
@@ -235,10 +236,21 @@ SharerDialogView.prototype.afterShow = function sdv_afterShow() {
   var $el = $(this.element);
   var registered_name_drag_modals = ['sharer-dialog'];
   if(this.name && registered_name_drag_modals.indexOf(this.name) !== -1 && $el.length && !$el.hasClass('eventdrag')){
-    var pos = $el.position();
-    $el.addClass('eventdrag').udraggable({handle: '.modal-header,.modal-footer'});
-    if( parseFloat(pos.top) < 0 )
-      $el.css('top', '2%');
+    var $dialog = $el.find('.modal-dialog'),
+        dHeight = $dialog.height(),
+        treshold = 80,
+        pos = $dialog.position()
+    ;
+
+    $el.find('.modal-dialog').draggable({
+      opacity: .65,
+      handle: ".modal-header, .modal-footer"
+    }).addClass('eventdrag');
+
+    if (dHeight > 0)
+      $el.css('min-height', (dHeight+treshold)+'px');
+
+    $dialog.css('top', 0);
   }
 };
 SharerDialogView.prototype.handleEvent = function sdv_handleEvent(evt) {

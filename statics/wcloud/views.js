@@ -520,7 +520,7 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
     $dialog.find('ul.menu-themes>li>a').each(function(){
       $(this).click(function(e){
         e.preventDefault();
-        let $me = $(this),
+        var $me = $(this),
             $ul = $me.closest('ul')
         ;
         console.log($me.data());

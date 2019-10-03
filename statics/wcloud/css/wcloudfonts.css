@@ -5,13 +5,13 @@
   font-family: "Liberation Serif";
   font-style: normal;
   font-weight: 400;
-  src: url(../../fonts/liberation_serif/LiberationSerif-Regular.ttf);
+  src: url(../../fonts/wcloud/LiberationSerif-Regular.ttf);
 }
 @font-face {
   font-family: "Liberation Serif";
   font-style: normal;
   font-weight: 700;
-  src: url(../../fonts/liberation_serif/LiberationSerif-Bold.ttf);
+  src: url(../../fonts/wcloud/LiberationSerif-Bold.ttf);
 }
 
 
@@ -21,28 +21,28 @@
   font-family: "Candara";
   font-style: normal;
   font-weight: 400;
-  src: url(../../fonts/Candara-Regular.ttf);
+  src: url(../../fonts/wcloud/Candara-Regular.ttf);
 }
 /* Font: Verdana; (c)1996 Microsoft */
 @font-face {
   font-family: "Verdana";
   font-style: normal;
   font-weight: 400;
-  src: url(../../fonts/Verdana.ttf);
+  src: url(../../fonts/wcloud/Verdana.ttf);
 }
 /* Font: Trebuchet MS; (c)1996 Microsoft */
 @font-face {
   font-family: "Trebuchet MS";
   font-style: normal;
   font-weight: 400;
-  src: url(../../fonts/TrebuchetMS.ttf);
+  src: url(../../fonts/wcloud/TrebuchetMS.ttf);
 }
 /* Font: Impact; (c)1991-1996 The Monotype Corporation */
 @font-face {
   font-family: "Impact";
   font-style: normal;
   font-weight: 400;
-  src: url(../../fonts/Impact.ttf);
+  src: url(../../fonts/wcloud/Impact.ttf);
 }
 
 
@@ -53,7 +53,7 @@
   font-family: "Chlorinar";
   font-style: normal;
   font-weight: 400;
-  src: url(../../fonts/chlorinar/CHLORINR.TTF);
+  src: url(../../fonts/wcloud/CHLORINR.TTF);
 }
 
 /* Font: LDFComicSans */
@@ -61,7 +61,7 @@
   font-family: "LDFComicSans";
   font-style: normal;
   font-weight: 400;
-  src: url(../../fonts/ldfcomicsans/LDFComicSans.ttf);
+  src: url(../../fonts/wcloud/LDFComicSans.ttf);
 }
 
 
@@ -72,7 +72,7 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../../fonts/OpenSansSemiBold.woff) format('woff');
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url(../../fonts/wcloud/OpenSansSemiBold.woff) format('woff');
 }
 
 /* Font: Droid */
@@ -80,7 +80,7 @@
   font-family: 'Droid Sans';
   font-style: normal;
   font-weight: 600;
-  src: local('Droid Sans mono'), local('Droid-Sans-mono'), url(../../fonts/droidsansmono.woff) format('woff');
+  src: local('Droid Sans mono'), local('Droid-Sans-mono'), url(../../fonts/wcloud/droidsansmono.woff) format('woff');
 }
 
 /* Font: FingerPaint */
@@ -88,7 +88,7 @@
   font-family: 'FingerPaint';
   font-style: normal;
   font-weight: 600;
-  src: local('FingerPaint Regular'), local('FingerPaint-Regular'), url(../../fonts/FingerPaint-Regular.woff) format('woff');
+  src: local('FingerPaint Regular'), local('FingerPaint-Regular'), url(../../fonts/wcloud/FingerPaint-Regular.woff) format('woff');
 }
 
 /* Font: JollyLodger */
@@ -96,7 +96,7 @@
   font-family: 'JollyLodger';
   font-style: normal;
   font-weight: 600;
-  src: local('JollyLodger'), local('JollyLodger'), url(../../fonts/JollyLodger.woff) format('woff');
+  src: local('JollyLodger'), local('JollyLodger'), url(../../fonts/wcloud/JollyLodger.woff) format('woff');
 }
 
 /* Font: JollyLodger */
@@ -104,7 +104,7 @@
   font-family: 'Ubuntu';
   font-style: normal;
   font-weight: 600;
-  src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(../../fonts/UbuntuMono-Regular.woff) format('woff');
+  src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(../../fonts/wcloud/UbuntuMono-Regular.woff) format('woff');
 }
 
 /* Font: Libre Baskerville */
@@ -112,7 +112,7 @@
   font-family: 'Libre Baskerville';
   font-style: normal;
   font-weight: 600;
-  src: local('Libre Baskerville'), local('LibreBaskerville-Regular'), url(../../fonts/LibreBaskerville-Regular.woff) format('woff');
+  src: local('Libre Baskerville'), local('LibreBaskerville-Regular'), url(../../fonts/wcloud/LibreBaskerville-Regular.woff) format('woff');
 }
 
 /* Font: Lobster */
@@ -120,7 +120,7 @@
   font-family: 'Lobster';
   font-style: normal;
   font-weight: 600;
-  src: local('Lobster'), local('Lobster'), url(../../fonts/Lobster.woff) format('woff');
+  src: local('Lobster'), local('Lobster'), url(../../fonts/wcloud/Lobster.woff) format('woff');
 }
 
 

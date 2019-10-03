@@ -238,20 +238,20 @@ SharerDialogView.prototype.afterShow = function sdv_afterShow() {
   var registered_name_drag_modals = ['sharer-dialog'];
   if(this.name && registered_name_drag_modals.indexOf(this.name) !== -1 && $el.length && !$el.hasClass('eventdrag')){
     var $dialog = $el.find('.modal-dialog'),
-        dHeight = $dialog.height(),
-        treshold = 80,
-        pos = $dialog.position()
+        dHeight = $dialog.outerHeight(),
+        treshold = 80
     ;
-
-    $el.find('.modal-dialog').draggable({
-      opacity: .65,
-      handle: ".modal-header, .modal-footer"
-    }).addClass('eventdrag');
-
     if (dHeight > 0)
       $el.css('min-height', (dHeight+treshold)+'px');
 
-    $dialog.css('top', 0);
+    if ($el.hasClass('draggable')){
+      $el.find('.modal-dialog').draggable({
+        opacity: .65,
+        handle: ".modal-header, .modal-footer"
+      })
+    }
+
+    $el.addClass('eventdrag');
   }
 };
 SharerDialogView.prototype.handleEvent = function sdv_handleEvent(evt) {
@@ -451,6 +451,7 @@ SharerDialogView.prototype.uploadImage = function sdv_uploadImage() {
     throw 'IMGUR_CLIENT_ID is not set.';
 
   this.app.logAction('SharerDialogView::uploadImage');
+  return !1;
 
   this.imgurData = undefined;
   this.facebookPostedUrl = undefined;

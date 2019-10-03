@@ -42,22 +42,23 @@ View.prototype.show = function v_show(currentState, nextState) {
   if(this.name && registered_name_drag_modals.indexOf(this.name) !== -1 && $el.length && !$el.hasClass('eventdrag')){
     var $dialog = $el.find('.modal-dialog'),
         dHeight = $dialog.outerHeight(),
-        treshold = 80,
-        pos = $dialog.position()
+        treshold = 80
     ;
+
     if (this.name == 'option-dialog')
       treshold = 150;
-
-
-    $el.find('.modal-dialog').draggable({
-      opacity: .65,
-      handle: ".modal-header, .modal-footer"
-    }).addClass('eventdrag');
 
     if (dHeight > 0)
       $el.css('min-height', (dHeight+treshold)+'px');
 
-    $dialog.css('top', 0);
+    if ($el.hasClass('draggable')){
+      $el.find('.modal-dialog').draggable({
+        opacity: .65,
+        handle: ".modal-header, .modal-footer"
+      });
+    }
+
+    $el.addClass('eventdrag');
   }
 
   return true;
@@ -440,11 +441,6 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
       .addClass('hide');
 
     $partheme.find('.wrap-'+mode).removeClass('hide');
-
-    setTimeout(function(){
-      $tabb
-        .css('height', $partheme.height()+'px');
-    }, 12);
   };
 
 
@@ -520,7 +516,7 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
     $dialog.find('ul.menu-themes>li>a').each(function(){
       $(this).click(function(e){
         e.preventDefault();
-        let $me = $(this),
+        var $me = $(this),
             $ul = $me.closest('ul')
         ;
         console.log($me.data());
@@ -625,9 +621,9 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
         $(this).select();
       });
     });
-    $dialog.find('.add-on').each(function(){
+    $dialog.find('.input-group-addon').each(function(){
       var $me = $(this), $next = $me.next();
-      if( $next.hasClass('color-value') )
+      if ($next.hasClass('color-value'))
         $me.click(function(){
           $next.focus();
         });
@@ -1111,3 +1107,23 @@ SNSPushView.prototype.handleEvent = function spv_handleEvent(evt) {
       break;
   }
 };
+
+
+/* Keystroke */
+$(document).keyup(function(e) {
+  if (e.keyCode == 27) {
+    var $modal = $('[role="dialog"].modal:not([hidden])').first();
+    // Found one?
+    if (!$modal.length)
+      return !1;
+
+    // Does modal has escapable & close button
+    if (!($modal.hasClass('escapable') && $modal.find('.close').length))
+      return !1;
+
+    $modal.find('.close')
+      .trigger('click');
+
+    return true;
+  }
+});

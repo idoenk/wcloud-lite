@@ -47,20 +47,20 @@ SourceDialogView.prototype.afterShow = function sdv_afterShow() {
   var registered_name_drag_modals = ['source-dialog'];
   if(this.name && registered_name_drag_modals.indexOf(this.name) !== -1 && $el.length && !$el.hasClass('eventdrag')){
     var $dialog = $el.find('.modal-dialog'),
-        dHeight = $dialog.height(),
-        treshold = 50,
-        pos = $dialog.position()
+        dHeight = $dialog.outerHeight(),
+        treshold = 80
     ;
-
-    $el.find('.modal-dialog').draggable({
-      opacity: .65,
-      handle: ".modal-header, .modal-footer"
-    }).addClass('eventdrag');
-
     if (dHeight > 0)
       $el.css('min-height', (dHeight+treshold)+'px');
 
-    $dialog.css('top', 0);
+    if ($el.hasClass('draggable')){
+      $el.find('.modal-dialog').draggable({
+        opacity: .65,
+        handle: ".modal-header, .modal-footer"
+      })
+    }
+
+    $el.addClass('eventdrag');
   }
 };
 SourceDialogView.prototype.handleEvent = function sd_handleEvent(evt) {
@@ -125,12 +125,6 @@ SourceDialogView.prototype.showPanel = function sd_showPanel(panel) {
 
   if (this.app)
     this.app.logAction('SourceDialogView::showPanel', panel.name);
-
-  var $ul = $(panel.menuItemElement).closest('ul'),
-      $panel = $(panel.element).parent();
-  setTimeout(function(){
-    $ul.css('height', ($panel.outerHeight() - 0)+'px');
-  }, 32);
 };
 SourceDialogView.prototype.addPanel = function sd_addPanel(panel) {
   this.panels[panel.name] = panel;

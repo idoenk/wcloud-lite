@@ -130,7 +130,6 @@ body {
 }
 
 @media (max-width: 767px) {
-
   .col-source-menu{
     padding-left: 15px;
     margin-bottom: 10px;
@@ -163,7 +162,12 @@ body {
   }
   .nav-tabs-google > li > a:hover,
   .nav-source.nav-tabs-google > li.active > a:hover{
+
     background-color: inherit;
+  }
+
+  .wrap-themes-outer{
+    margin-top: 10px;
   }
 }
 
@@ -525,7 +529,6 @@ textarea.wordlist-spec.code{
 #wc-option-content .form-group .controls > .checkbox{
   margin-top: 2px;
 }
-.wrap-themes-outer{}
 
 
 .color-result {
@@ -749,20 +752,12 @@ textarea.wordlist-spec.code{
   margin: 5px 0;
   margin-bottom: 10px;
 }
-
-
-.wrap-custom .wrap-color-custom{
-  margin-top: 10px;
-}
-
-
 .wrap-custom .wrap-color-random{
   border-top: 1px solid #ddd;
   margin-top: 10px;
   padding: 2px 4px;
   padding-left: 20px;
 }
-
 .wrap-custom .wrap-color-random .randomcolor.radio{
   width: 100%;
 }
@@ -770,6 +765,7 @@ textarea.wordlist-spec.code{
   margin-left: 5px;
 } 
 .wrap-custom .wrap-color-random .btn-detailcolor{}
+
 
 .help-block {
   font-size: 12px;
@@ -841,8 +837,6 @@ textarea.wordlist-spec.code{
 .btn.btn-supersmall .icon-step-backward{
   margin-left: -6px;
 }
-
-
 .btn.btn-sidesmall{
   border: 0;
   width: auto;
@@ -863,6 +857,16 @@ textarea.wordlist-spec.code{
   top: 0;
 }
 
+.btn-flat.btn-setting-dialog,
+.btn-flat.btn-setting-about{
+  font-size: 16px;
+  color: #666;
+}
+.btn-flat.btn-setting-dialog:hover,
+.btn-flat.btn-setting-about:hover{
+  color: #333;
+}
+
 .inlineblock{
   display: inline-block;
 }
@@ -880,4 +884,18 @@ select.form-control + .caret{
   position: absolute;
   top: 14px;
   right: 10px;
+}
+
+/* Responsive */
+@media (min-width: 768px){
+  .modal .row-flex{
+    display: flex;
+  }
+  .row-flex > [class*="col-"]{
+    flex: auto;
+  }
+  .row-flex .tabbable,
+  .row-flex .tabbable > ul{
+    height: 100%;
+  }
 }

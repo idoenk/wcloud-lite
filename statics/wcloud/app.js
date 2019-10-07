@@ -522,6 +522,7 @@ WordCloudApp.prototype.tooglePanel = function wca_tooglePanel(flag){
   }
 };
 WordCloudApp.prototype.reposPanel = function wca_reposPanel(position){
+  console.log('in reposPanel ');
   if("undefined" == typeof position)
     position = (this.data.panelpos ? this.data.panelpos : 'fixed-bottom-left');
 
@@ -529,10 +530,11 @@ WordCloudApp.prototype.reposPanel = function wca_reposPanel(position){
     .removeClass('fixed-top fixed-bottom-left fixed-bottom')
     .addClass( position );
 
-  if( this.data.panelpos != 'fixed-top' )
-    $('#btn-pickfont').closest('.btn-group').addClass('dropup');
+  var $bgroup_font = $('#btn-pickfont').closest('.btn-group');
+  if (position == 'fixed-top')
+    $bgroup_font.addClass('dropdown');
   else
-    $('#btn-pickfont').closest('.btn-group').removeClass('dropup');
+    $bgroup_font.addClass('dropup');
 };
 WordCloudApp.prototype.pushFonts = function wca_pushFonts(){
   // build fonts set

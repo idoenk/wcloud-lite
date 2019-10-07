@@ -317,27 +317,45 @@ textarea.wordlist-spec.code{
     left: 0; }
     #wc-dashboard.fixed-top > .container {
       margin-top: 0; }
+
+    #wc-dashboard.fixed-bottom .navbar,
+    #wc-dashboard.fixed-top .navbar {
+      margin-bottom: 0;
+      border: 0;
+    }
+    #wc-dashboard.fixed-bottom .navbar-inner,
     #wc-dashboard.fixed-top .navbar-inner {
-      -webkit-border-bottom-right-radius: 4px;
-      -webkit-border-bottom-left-radius: 4px;
-      -moz-border-radius-bottomright: 4px;
-      -moz-border-radius-bottomleft: 4px;
-      border-bottom-right-radius: 4px;
-      border-bottom-left-radius: 4px;
-      border-top: 0; }
+      background-color: #fff;
+      padding: 5px;
+      padding-bottom: 0;
+    }
+  #wc-dashboard.fixed-top .navbar-inner {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-border-bottom-right-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top: 0;
+  }
   #wc-dashboard.fixed-bottom {
     top: initial;
     bottom: 0; }
-    #wc-dashboard.fixed-bottom .navbar {
-      margin-bottom: 0; }
     #wc-dashboard.fixed-bottom .navbar-inner {
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
       -webkit-border-top-left-radius: 4px;
       -webkit-border-top-right-radius: 4px;
       -moz-border-radius-topleft: 4px;
       -moz-border-radius-topright: 4px;
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
-      border-bottom: 0; }
+      border-bottom: 0;
+    }
 
   #wc-dashboard.fixed-top .navbar .navbar-inner .btn-group + .btn-group,
   #wc-dashboard.fixed-bottom .navbar .navbar-inner .btn-group + .btn-group{
@@ -383,6 +401,14 @@ textarea.wordlist-spec.code{
       width: 360px; }
     #wc-dashboard.fixed-bottom-left .navbar-inner .group-actionprimary {
       position: static; } }
+
+  .btn-group.dropdown #wc-dashboard .caret{
+    -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
+    -moz-transform: rotate(180deg);        /* FF */
+    -o-transform: rotate(180deg);          /* Opera */
+    -ms-transform: rotate(180deg);         /* IE9 */
+    transform: rotate(180deg);
+  }
 
 .wc-sharer-service-title {
   font-weight: bold; }
@@ -816,8 +842,6 @@ textarea.wordlist-spec.code{
 
 .group-offsetright{
   position: absolute;
-  right: -31px;
-  top: 0;
   opacity: .35;
 }
 .group-offsetright .btn{
@@ -826,6 +850,15 @@ textarea.wordlist-spec.code{
 }
 .group-offsetright:hover{
   opacity: 1;
+}
+.fixed-top .group-offsetright,
+.fixed-bottom .group-offsetright{
+  right: -21px;
+  top: calc(50% - 28px /2);
+}
+.fixed-bottom-left .group-offsetright{
+  right: -30px;
+  top: 0;
 }
 
 
@@ -852,9 +885,9 @@ textarea.wordlist-spec.code{
   font-size: 24px;
 }
 .wrap-toogleside{
-  position: absolute;
-  left: -10px;
-  top: 0;
+  position: fixed;
+  left: 0;
+  bottom: 10%;
 }
 
 .btn-flat.btn-setting-dialog,

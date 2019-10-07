@@ -688,11 +688,10 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
     });
 
     $dialog.find('#skew-normalize').click(function(){
-      var $par = $(this).closest('.wrap-skew');
+      var $par = $(this).closest('.controls');
       var $skew = $par.find('#skew-treshold')
       $skew.prop('disabled', !$(this).is(':checked'));
-    })
-
+    });
 
     $dialog.addClass('events');
   }

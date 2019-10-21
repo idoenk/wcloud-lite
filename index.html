@@ -68,9 +68,6 @@
 
 </head>
 <body>
-  <style>
-  </style>
-
   <div id="wc-header-logo">
     <div id="headerlogo">
       <a href="./" class="btn btn-small">
@@ -557,9 +554,11 @@
                       <div class="tabbable">
                         <ul class="nav nav-tabs nav-tabs-google nav-source menu-themes" role="tablist">
                           <li class="active">
+                            <input type="checkbox" name="themes" class="ninja" value="preset" checked="checked" />
                             <a href="javascript:;" data-name="preset">Preset</a>
                           </li>
                           <li>
+                            <input type="checkbox" name="themes" class="ninja" value="custom" />
                             <a href="javascript:;" data-name="custom">Custom</a>
                           </li>
                         </ul>
@@ -576,7 +575,19 @@
 
                         <div class="itemwrap wrap-custom hide" role="form">
                           <div class="form-group">
-                            <label class="control-label">Background</label>
+                            <label class="control-label">Font</label>
+                            <div class="controls">
+                              <div class="form-select font-list">
+                                <select id="font-custom" class="form-control">
+                                  <OptionDialogView::loadContent />
+                                </select>
+                                <span class="caret"></span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="control-label">Background Color</label>
                             <div class="controls item">
                               <div class="wrap-action-result">
                                 <a class="color-result btn-pickcolor" id="btn-pickcolor" title="Select Color" data-current="Current Color"></a>
@@ -598,18 +609,6 @@
                                   <div id="bg-colorslide" class="slide"></div>
                                   <div id="bg-colorslide-indicator" class="slide-indicator"></div>
                                 </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label class="control-label">Font</label>
-                            <div class="controls">
-                              <div class="form-select">
-                                <select id="font-custom" class="form-control font-list">
-                                  <OptionDialogView::loadContent />
-                                </select>
-                                <span class="caret"></span>
                               </div>
                             </div>
                           </div>
@@ -649,7 +648,7 @@
                                         </div>
                                       </div>
                                       <div class="item">
-                                        <div class="label inlineblock">Highlight Word</div>
+                                        <div class="label inlineblock">Highlighted Word</div>
                                         
                                         <div class="wrap-action-result">
                                           <a class="color-result btn-pickcolor" id="btn-pickcolor-dualtone-topword" title="Select" data-current="Current"></a>

@@ -39,14 +39,15 @@ View.prototype.show = function v_show(currentState, nextState) {
       registered_name_drag_modals = ['list-dialog', 'about-dialog', 'option-dialog']
   ;
 
-  if(this.name && registered_name_drag_modals.indexOf(this.name) !== -1 && $el.length && !$el.hasClass('eventdrag')){
+  if(this.name && registered_name_drag_modals.indexOf(this.name) !== -1
+    && $el.length && !$el.hasClass('eventdrag')){
     var $dialog = $el.find('.modal-dialog'),
         dHeight = $dialog.outerHeight(),
         treshold = 80
     ;
 
     if (this.name == 'option-dialog')
-      treshold = 150;
+      treshold = 400;
 
     if (dHeight > 0)
       $el.css('min-height', (dHeight+treshold)+'px');
@@ -427,7 +428,8 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
   };
 
   var toggle_themes = function($btn){
-    var $par = $btn.closest('.controls'),
+    var $li = $btn.closest('li'),
+        $par = $btn.closest('.controls'),
         $tabb = $btn.closest('.tabbable'),
         mode = $btn.data('name'),
         $partheme = $par.find('.wrap-themes-outer')
@@ -440,11 +442,25 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
       .find('.itemwrap')
       .addClass('hide');
 
-    $partheme.find('.wrap-'+mode).removeClass('hide');
+    $partheme
+      .find('.wrap-'+mode)
+      .removeClass('hide');
+
+    $tabb.find('ul.menu-themes>li')
+      .removeClass('active')
+      .find('[name="themes"]')
+        .prop('checked', false)
+        .removeAttr('checked');
+
+    $li
+      .addClass('active')
+      .find('[name="themes"]')
+        .prop('checked', true)
+        .attr('checked', 'checked');
   };
 
 
-  if( !$dialog.hasClass('events') ){
+  if (!$dialog.hasClass('events') ){
 
     // dynamic-design
 
@@ -471,7 +487,7 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
         continue;
 
       colorset = app.themes[i].colorset;
-      tplthemes += '<div class="theme selected" data-theme="'+(i+1)+'">';
+      tplthemes += '<div class="theme" data-theme="'+(i+1)+'">';
       tplrandomcolor += '<label class="radio randomcolor">'
         +'<input type="radio" name="randomcolor" value="style-'+(i+1)+'">'
       ;
@@ -479,11 +495,11 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
       if( "undefined" != typeof colorset ){
         
         subtpltheme = '<div class="unitpalete">{{SUBTPL_BACKGR}}';
-        subtpl_backgr = '<div class="pbox" title="Background" style="background-color:'+app.themes[i].backgroundColor+'; border-right:2px dotted #ddd;"></div>';
+        subtpl_backgr = '<div class="pbox pbox-bkg" title="Background" style="background-color:'+app.themes[i].backgroundColor+';"></div>';
         
         if( "object" == typeof colorset && colorset ){
           for(var j=0; j<colorset.length; j++)
-            subtpltheme += '<div class="pbox kesatu"><span class="boxc" style="background-color:'+colorset[j]+'"></span>'
+            subtpltheme += '<div class="pbox pbox-palette"><span class="boxc" style="background-color:'+colorset[j]+'"></span>'
               +'<input class="ctext" value="'+String(colorset[j]).replace(/\#/g,'').toUpperCase()+'" readonly="readonly" />' 
               +'</div>';
         }
@@ -516,15 +532,8 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
     $dialog.find('ul.menu-themes>li>a').each(function(){
       $(this).click(function(e){
         e.preventDefault();
-        var $me = $(this),
-            $ul = $me.closest('ul')
-        ;
-        console.log($me.data());
-        $ul.find('li').removeClass('active');
 
-        toggle_themes($me);
-        $me.closest('li')
-          .addClass('active');
+        toggle_themes($(this));
       })
     });
 
@@ -698,33 +707,43 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
 
 
 
+  // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
   // redesign based on latest localStorage options
   var options = app.getStorageOptions();
-  if( app.DEBUG_LOG ){
+
+  if (app.DEBUG_LOG){
     console.log(options);
     console.log('redesign option-dialog');
   }
 
-  if( "undefined" != typeof options.theme ){
+  if ("undefined" != typeof options.theme){
     $wraper = $('.wrap-themes');
     $wraper.find('.theme').removeClass('selected');
-    $wraper.find('.theme[data-theme='+(options.theme+1)+']').addClass('selected');
+    $wraper
+      .find('.theme[data-theme='+(options.theme+1)+']')
+      .addClass('selected');
   }
-  if( "undefined" != typeof options.shape ){
+  else{
+    $('.wrap-themes>.theme').first()
+      .trigger('click');
+  }
+
+  if ("undefined" != typeof options.shape){
     $wraper = $('.wrap-shapes');
     $wraper.find('.shape').removeClass('selected');
     $wraper.find('.shape[data-shape='+options.shape+']').addClass('selected');
   }
 
-  if( "undefined" != typeof options.panelpos ){
+  if ("undefined" != typeof options.panelpos){
     $wraper = $dialog.find('#panel-possition');
     $wraper.find('[selected]').prop('selected', false);
     $wraper.find('[value='+options.panelpos+']').prop('selected', true);
   }
-  if( "undefined" != typeof options.skewNormalize ){
+
+  if ("undefined" != typeof options.skewNormalize){
     $dialog.find('#skew-normalize').prop('checked', options.skewNormalize);
 
-    if( "undefined" != typeof options.skewnessTreshold )
+    if ("undefined" != typeof options.skewnessTreshold)
       $dialog.find('#skew-treshold')
         .val(options.skewnessTreshold)
         .prop('disabled', !options.skewNormalize);
@@ -733,8 +752,7 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
 
   console.log('options.custom_themeIndex='+options.custom_themeIndex);
   console.log('options.theme='+options.theme);
-  if( options.custom_themeIndex && options.custom_themeIndex == options.theme ){
-    // $dialog.find('#rad2').trigger('click');
+  if (options.custom_themeIndex && options.custom_themeIndex == options.theme){
     $dialog
       .find('ul.menu-themes>li>a[data-name="custom"]')
       .trigger('click');
@@ -834,7 +852,6 @@ OptionDialogView.prototype.loadContent = function odv_loadContent(lang, first){
     }
   }
   else{
-    // $dialog.find('#rad1').trigger('click');
     $dialog
       .find('ul.menu-themes>li>a[data-name="preset"]')
       .trigger('click');

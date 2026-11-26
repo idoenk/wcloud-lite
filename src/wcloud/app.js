@@ -630,30 +630,50 @@ export class WordCloudApp {
   }
 
   pushFonts() {
-    const fontSelect = document.getElementById('font-custom');
-    if (fontSelect) {
-      fontSelect.innerHTML = '';
-      for (const [label, family] of this.fontsets) {
-        const opt = document.createElement('option');
-        opt.value = family;
-        opt.textContent = label;
-        fontSelect.appendChild(opt);
+    const buildFontItems = (container, action) => {
+      if (!container) {
+        return;
       }
-    }
-
-    const dropdownList = document.getElementById('dashboard-dropdown-fonts');
-    if (dropdownList) {
-      dropdownList.innerHTML = '';
+      container.innerHTML = '';
       for (const [label, family] of this.fontsets) {
         const li = document.createElement('li');
         const link = document.createElement('a');
         link.className = 'dropdown-item';
         link.href = '#';
-        link.dataset.action = 'swfont';
+        if (action) {
+          link.dataset.action = action;
+        }
         link.dataset.font = family;
+        link.dataset.label = label;
+        link.title = label;
+        link.style.fontFamily = family;
         link.textContent = label;
         li.appendChild(link);
-        dropdownList.appendChild(li);
+        container.appendChild(li);
+      }
+    };
+
+    buildFontItems(document.getElementById('dashboard-dropdown-fonts'), 'swfont');
+    buildFontItems(document.getElementById('option-dropdown-fonts'), null);
+
+    const fontInput = document.getElementById('font-custom');
+    const fontBtn = document.getElementById('btn-font-custom');
+    const fontLabel = document.getElementById('font-custom-label');
+    if (this.fontsets.length > 0) {
+      const [defaultLabel, defaultFamily] = this.fontsets[0];
+      if (fontInput && !fontInput.value) {
+        fontInput.value = defaultFamily;
+      }
+      if (fontBtn && !fontBtn.title) {
+        fontBtn.title = defaultLabel;
+      }
+      if (fontLabel && !fontLabel.textContent) {
+        fontLabel.textContent = defaultLabel;
+        fontLabel.style.fontFamily = defaultFamily;
+      }
+      const firstOptionLink = document.querySelector('#option-dropdown-fonts a[data-font]');
+      if (firstOptionLink) {
+        firstOptionLink.classList.add('active');
       }
     }
   }

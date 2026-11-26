@@ -30,10 +30,35 @@ export class DashboardView extends View {
 
   beforeShow(state, nextState) {
     this.syncControls(nextState);
+    this.syncActiveFont();
   }
 
   beforeHide(state, nextState) {
     this.syncControls(nextState);
+  }
+
+  syncActiveFont() {
+    const app = this.app;
+    const dropdownList = document.getElementById('dashboard-dropdown-fonts');
+    if (!app || !dropdownList) {
+      return;
+    }
+
+    const activeFont =
+      app.data.custom_themeIndex === app.data.theme && app.data.custom
+        ? app.data.custom.fontFamily
+        : app.data.directFont || app.themes[app.data.theme]?.fontFamily || '';
+    const primaryFont = String(activeFont).split(',')[0].replace(/"/g, '').trim();
+
+    const links = Array.from(dropdownList.querySelectorAll('a[data-font]'));
+    let matched = links.find((link) => link.dataset.font === activeFont);
+    if (!matched && primaryFont) {
+      matched = links.find((link) => link.dataset.font.includes(primaryFont));
+    }
+
+    links.forEach((link) => {
+      link.classList.toggle('active', link === matched);
+    });
   }
 
   syncControls(nextState) {
@@ -106,6 +131,7 @@ export class DashboardView extends View {
         } else {
           app.data.directFont = fontFamily;
         }
+        this.syncActiveFont();
         if (this.fontDropdown) {
           this.fontDropdown.hide();
         }
@@ -117,6 +143,7 @@ export class DashboardView extends View {
         const hasCustom = Boolean(app.data.custom);
         const maxThemes = hasCustom ? app.themes.length : app.data.custom_themeIndex;
         app.data.theme = (app.data.theme + 1) % maxThemes;
+        this.syncActiveFont();
         app.draw();
         break;
       }

@@ -373,9 +373,29 @@ body {
   gap: 4px;
 }
 
-#wc-dashboard .dropdown-menu {
+#wc-dashboard .dropdown-menu,
+.font-picker-menu {
   max-height: 280px;
   overflow-y: auto;
+}
+
+.font-picker-menu {
+  z-index: 1065;
+}
+
+.font-picker-menu .dropdown-item {
+  font-size: 14px;
+  line-height: 1.45;
+  padding: 5px 12px;
+}
+
+#btn-font-custom {
+  cursor: pointer;
+}
+
+#font-custom-label {
+  font-size: 13px;
+  line-height: 1.35;
 }
 
 .smaller-icon {

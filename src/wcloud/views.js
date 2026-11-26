@@ -7,7 +7,7 @@
  * Released under the MIT license
  */
 
-import { Picker, Tab } from '../vendor/index.js';
+import { Dropdown, Picker, Tab } from '../vendor/index.js';
 import { __, webL10n } from '../timdream/index.js';
 import { DONATE_HTML } from './vars.js';
 import { attachModalDrag } from './utils/draggable.js';
@@ -302,6 +302,7 @@ export class OptionDialogView extends View {
     }
     this.syncFromOptions();
     this.closeAllColorPickers();
+    this.customFontDropdown?.hide();
   }
 
   initColorPicker(btnEl, defaultHex = 'ffffff') {
@@ -400,12 +401,52 @@ export class OptionDialogView extends View {
     });
   }
 
+  setCustomFont(fontFamily) {
+    const fontInput = this.element.querySelector('#font-custom');
+    const fontBtn = this.element.querySelector('#btn-font-custom');
+    const fontLabel = this.element.querySelector('#font-custom-label');
+    const dropdownList = this.element.querySelector('#option-dropdown-fonts');
+    if (!dropdownList) {
+      return;
+    }
+
+    const links = Array.from(dropdownList.querySelectorAll('a[data-font]'));
+    if (links.length === 0) {
+      return;
+    }
+
+    let matched = null;
+    if (fontFamily) {
+      const primaryFont = String(fontFamily).split(',')[0].replace(/"/g, '').trim();
+      matched =
+        links.find((link) => link.dataset.font === fontFamily) ||
+        (primaryFont ? links.find((link) => link.dataset.font.includes(primaryFont)) : null);
+    }
+    const target = matched || links[0];
+    const label = target.dataset.label || target.textContent;
+
+    if (fontInput) {
+      fontInput.value = target.dataset.font;
+    }
+    if (fontBtn) {
+      fontBtn.title = label;
+    }
+    if (fontLabel) {
+      fontLabel.textContent = label;
+      fontLabel.style.fontFamily = target.dataset.font;
+    }
+    links.forEach((link) => {
+      link.classList.toggle('active', link === target);
+    });
+  }
+
   toggleThemeMode(mode) {
     if (!mode) {
       return;
     }
 
     this.closeAllColorPickers();
+    this.customFontDropdown?.hide();
     const outer = this.element.querySelector('.wrap-themes-outer');
     if (outer) {
       outer.querySelectorAll('.itemwrap').forEach((wrap) => wrap.classList.add('d-none'));
@@ -577,6 +618,24 @@ export class OptionDialogView extends View {
     this.initColorPicker(this.element.querySelector('#btn-pickcolor-dualtone-topword'), 'dd4b39');
     this.initColorPicker(this.element.querySelector('#btn-pickcolor-dualtone-otherword'), 'cccccc');
     this.buildPresetPalettes();
+
+    // Custom theme font dropdown
+    const customFontBtn = this.element.querySelector('#btn-font-custom');
+    const customFontMenu = this.element.querySelector('#option-dropdown-fonts');
+    if (customFontBtn) {
+      this.customFontDropdown = Dropdown.getOrCreateInstance(customFontBtn);
+    }
+    if (customFontMenu) {
+      customFontMenu.addEventListener('click', (evt) => {
+        const link = evt.target.closest('a[data-font]');
+        if (!link) {
+          return;
+        }
+        evt.preventDefault();
+        this.setCustomFont(link.dataset.font);
+        this.customFontDropdown?.hide();
+      });
+    }
 
     // Theme mode tabs (Preset vs Custom)
     this.element.querySelectorAll('ul.menu-themes > li > a[data-name]').forEach((link) => {
@@ -816,16 +875,7 @@ export class OptionDialogView extends View {
         this.pickers.get('btn-pickcolor')?.setHex(custom.backgroundColor);
       }
 
-      const fontSelect = this.element.querySelector('#font-custom');
-      if (fontSelect && custom.fontFamily) {
-        const primaryFont = String(custom.fontFamily).split(',')[0].replace(/"/g, '').trim();
-        const matchOption = Array.from(fontSelect.options).find(
-          (opt) => opt.value === custom.fontFamily || opt.value.includes(primaryFont)
-        );
-        if (matchOption) {
-          fontSelect.value = matchOption.value;
-        }
-      }
+      this.setCustomFont(custom.fontFamily);
 
       if (custom.textcolorType === 'random') {
         this.setTextColorMode('random');

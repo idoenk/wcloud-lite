@@ -28,7 +28,7 @@
 <body>
   <div id="wc-header-logo">
     <div id="headerlogo">
-      <a href="./" class="btn btn-sm btn-flat" aria-label="Home">
+      <a href="./" class="btn btn-sm btn-flat" aria-label="Home" title="Back">
         <i class="bi bi-chevron-left" aria-hidden="true"></i>
       </a>
     </div>
@@ -298,7 +298,7 @@
             >
               <i class="bi bi-fonts" aria-hidden="true"></i><span data-l10n-id="dashboard-fonts-span"></span>
             </button>
-            <ul id="dashboard-dropdown-fonts" class="dropdown-menu"></ul>
+            <ul id="dashboard-dropdown-fonts" class="dropdown-menu font-picker-menu"></ul>
 
             <button type="button" data-l10n-id="dashboard-enlarge-btn" data-canvas-ctl data-action="size+" class="btn btn-default btn-sm disabled hide-label">
               <i class="bi bi-type" aria-hidden="true"></i><span data-l10n-id="dashboard-enlarge-span"></span>
@@ -440,9 +440,19 @@
 
                     <div class="itemwrap wrap-custom d-none">
                       <div class="mb-3">
-                        <label for="font-custom" class="form-label">Font</label>
-                        <div>
-                          <select id="font-custom" class="form-select form-select-sm" style="max-width: 240px;"></select>
+                        <label for="btn-font-custom" class="form-label">Font</label>
+                        <div class="dropdown font-picker-dropdown" style="max-width: 240px;">
+                          <input type="hidden" id="font-custom" value="" />
+                          <button
+                            type="button"
+                            id="btn-font-custom"
+                            class="form-select form-select-sm text-start d-flex align-items-center"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            <span id="font-custom-label" class="text-truncate"></span>
+                          </button>
+                          <ul id="option-dropdown-fonts" class="dropdown-menu font-picker-menu w-100"></ul>
                         </div>
                       </div>
 

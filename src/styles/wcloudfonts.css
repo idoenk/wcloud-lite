@@ -1,0 +1,113 @@
+/* Font Resources bundled by Vite */
+
+@font-face {
+  font-family: 'Liberation Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/wcloud/LiberationSerif-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Liberation Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/wcloud/LiberationSerif-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Candara';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/wcloud/Candara-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Verdana';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/wcloud/Verdana.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Trebuchet MS';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/wcloud/TrebuchetMS.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Impact';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/wcloud/Impact.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Chlorinar';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/wcloud/CHLORINR.TTF') format('truetype');
+}
+
+@font-face {
+  font-family: 'LDFComicSans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/wcloud/LDFComicSans.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Open Sans Semibold'), local('OpenSans-Semibold'),
+    url('../assets/fonts/wcloud/OpenSansSemiBold.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Droid Sans mono'), local('Droid-Sans-mono'),
+    url('../assets/fonts/wcloud/droidsansmono.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'FingerPaint';
+  font-style: normal;
+  font-weight: 600;
+  src: local('FingerPaint Regular'), local('FingerPaint-Regular'),
+    url('../assets/fonts/wcloud/FingerPaint-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'JollyLodger';
+  font-style: normal;
+  font-weight: 600;
+  src: local('JollyLodger'),
+    url('../assets/fonts/wcloud/JollyLodger.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Ubuntu Mono'), local('UbuntuMono-Regular'),
+    url('../assets/fonts/wcloud/UbuntuMono-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Libre Baskerville'), local('LibreBaskerville-Regular'),
+    url('../assets/fonts/wcloud/LibreBaskerville-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lobster';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Lobster'),
+    url('../assets/fonts/wcloud/Lobster.woff') format('woff');
+}

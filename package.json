@@ -1,0 +1,27 @@
+{
+  "name": "wcloud-lite",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idoenk/wcloud-lite.git"
+  },
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "HTML5 Word Cloud Generator (wcloud-lite) - client-side wordcloud app powered by Vite, Bootstrap 5, and timdream/wordcloud2.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "preview": "vite preview --port 4173",
+    "dev": "vite"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "store": "^2.0.12",
+    "vanilla-picker": "^2.12.3"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}

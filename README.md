@@ -14,7 +14,7 @@ Forked and modernized from [timdream/wordcloud](https://github.com/timdream/word
 > Everything is processed on your computer directly, employing technologies in the browser known collectively as *HTML5* (`Canvas`, `FileReader`, `Web Workers`, and `localStorage`).
 
 - **Zero tracking or analytics:** All upstream analytics, social widgets, and external sharing/upload hooks have been removed.
-- **Local persistence only:** Custom theme, font, shape, panel position, and normalization settings are saved strictly in your browser's `localStorage`.
+- **Local persistence only:** Custom theme, font, shape, panel position, and weight scaling settings are saved strictly in your browser's `localStorage`.
 - **Optional external lookup:** Only when you explicitly choose **Examples → Wikipedia** does your browser fetch public article text directly from Wikipedia's [MediaWiki API](https://en.wikipedia.org/w/api.php).
 
 ---
@@ -29,7 +29,7 @@ Compared to upstream [timdream/wordcloud](https://github.com/timdream/wordcloud)
 - **Extended Settings (`OptionDialogView`):**
   - **11 Preset Themes** + **Custom Theme** builder (custom background color with `vanilla-picker`, **14 bundled canvas fonts**, Sample Palette, **Dual-Tone** highlighting for Top-N words or Specific Words, and **1–5 Custom Color Palette**).
   - **6 Cloud Shapes:** Circle, Square, Triangle, Star, Pentagon, and **Love** (polar heart curve).
-  - **Cosine Skewness Normalization:** Optional non-destructive weight curve normalization with configurable threshold (`0`–`0.5`).
+  - **Weight Scaling (Balance skewed weights):** Optional non-destructive frequency balancing with configurable strength (`0`–`0.5`) to reduce dominance of top words and prevent overlap in tight shapes (e.g. Star).
   - **Dashboard Controls:** Bottom-left / Bottom-center / Top-center toolbar placement, live font switcher, theme/shape cycling, size & gap tuning, Edit List modal, collapsible panel toggle, and timestamped PNG export.
 - **Modern Zero-jQuery Stack:**
   - Removed jQuery, jQuery UI, Bootstrap 3, TODC Bootstrap 3, Font Awesome 4, IE shims, and deprecated social fetchers/sharers.

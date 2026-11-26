@@ -301,6 +301,7 @@ export class OptionDialogView extends View {
       this.eventsInitialized = true;
     }
     this.syncFromOptions();
+    this.closeAllColorPickers();
   }
 
   initColorPicker(btnEl, defaultHex = 'ffffff') {
@@ -382,11 +383,29 @@ export class OptionDialogView extends View {
     }
   }
 
+  closeAllColorPickers(exceptWrap = null) {
+    this.element.querySelectorAll('.wrap-color-picker').forEach((wrap) => {
+      if (wrap === exceptWrap || wrap.classList.contains('d-none')) {
+        return;
+      }
+      wrap.classList.add('d-none');
+      const itemEl = wrap.closest('.item');
+      const actionRow = itemEl?.querySelector('.wrap-action-result');
+      const btn = itemEl?.querySelector('.btn-pickcolor');
+      actionRow?.querySelector('.input-group')?.classList.add('d-none');
+      actionRow?.querySelector('.btn-clear')?.classList.add('d-none');
+      if (btn?.dataset.originalTitle) {
+        btn.setAttribute('title', btn.dataset.originalTitle);
+      }
+    });
+  }
+
   toggleThemeMode(mode) {
     if (!mode) {
       return;
     }
 
+    this.closeAllColorPickers();
     const outer = this.element.querySelector('.wrap-themes-outer');
     if (outer) {
       outer.querySelectorAll('.itemwrap').forEach((wrap) => wrap.classList.add('d-none'));
@@ -511,10 +530,10 @@ export class OptionDialogView extends View {
         } else {
           const pbox = document.createElement('div');
           pbox.className = 'pbox randomize';
-          const label = typeof theme.color === 'string' ? `random-${theme.color}` : 'random';
-          pbox.title = label;
+          // const label = typeof theme.color === 'string' ? `random-${theme.color}` : 'random';
+          // pbox.title = label;
           pbox.style.backgroundColor = '#ffffff';
-          pbox.textContent = label;
+          pbox.textContent = 'random';
           unit.appendChild(pbox);
         }
 
@@ -594,10 +613,11 @@ export class OptionDialogView extends View {
       });
     });
 
-    // Toggle inline vanilla-picker + hex input + clear button on swatch click
+    // Toggle floating vanilla-picker + hex input + clear button on swatch click
     this.element.querySelectorAll('.btn-pickcolor').forEach((btn) => {
       btn.addEventListener('click', (evt) => {
         evt.preventDefault();
+        evt.stopPropagation();
         const actionRow = btn.closest('.wrap-action-result');
         const itemEl = btn.closest('.item');
         const pickerWrap = itemEl?.querySelector('.wrap-color-picker');
@@ -606,6 +626,7 @@ export class OptionDialogView extends View {
         }
 
         const willShow = pickerWrap.classList.contains('d-none');
+        this.closeAllColorPickers(willShow ? pickerWrap : null);
         pickerWrap.classList.toggle('d-none', !willShow);
         actionRow.querySelector('.input-group')?.classList.toggle('d-none', !willShow);
         actionRow.querySelector('.btn-clear')?.classList.toggle('d-none', !willShow);
@@ -617,6 +638,13 @@ export class OptionDialogView extends View {
           btn.setAttribute('title', btn.dataset.originalTitle);
         }
       });
+    });
+
+    // Close open floating color picker when clicking outside its item container
+    this.element.addEventListener('click', (evt) => {
+      const targetItem = evt.target.closest?.('.item');
+      const targetWrap = targetItem?.querySelector('.wrap-color-picker') || null;
+      this.closeAllColorPickers(targetWrap);
     });
 
     // Clear color buttons

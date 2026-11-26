@@ -322,7 +322,13 @@ export class WikipediaFetcher extends JSONPFetcher {
     if (dataTypeArr[2]) {
       params.push(['converttitles', dataTypeArr[2]]);
     }
-    params.push(['titles', data]);
+    let title = data;
+    try {
+      title = decodeURIComponent(data);
+    } catch {
+      // Keep raw title if URI decoding fails
+    }
+    params.push(['titles', title]);
 
     const query = params
       .map(([k, v]) => `${k}=${encodeURIComponent(v)}`)

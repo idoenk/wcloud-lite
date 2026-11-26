@@ -441,10 +441,32 @@ body {
 /* Option Dialog */
 #wc-option-dialog > .modal-dialog {
   max-width: 660px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#wc-option-dialog .modal-header {
+  padding: 10px 16px;
+}
+
+#wc-option-dialog .modal-body {
+  padding: 12px 16px;
+}
+
+#wc-option-dialog .modal-footer {
+  padding: 8px 16px;
 }
 
 #wc-option-content .form-section {
-  margin-bottom: 14px;
+  margin-bottom: 10px;
+}
+
+#wc-option-content .form-label {
+  margin-bottom: 4px;
+}
+
+#wc-theme-panels .item {
+  position: relative;
 }
 
 textarea.wordlist-spec {
@@ -510,26 +532,43 @@ textarea.wordlist-spec {
   height: 26px;
 }
 
+.text-color-mode-wrap .form-check {
+  min-height: unset;
+}
+
 .wrap-color-picker {
-  margin: 6px 0 12px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1060;
+  margin: 4px 0 0;
+  background: #ffffff;
 }
 
 .wrap-color-picker .picker_wrapper.no_alpha {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
   border: 1px solid #cccccc;
   border-radius: 2px;
+}
+
+
+.layout_default .picker_sample {
+  height: 30px;
+}
+.layout_default .picker_done {
+  display: none;
 }
 
 /* Shapes & Preset Themes */
 .wrap-shapes {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
+  gap: 5px;
+  margin-top: 2px;
 }
 
 .wrap-shapes img {
-  height: 54px;
+  height: 42px;
   width: auto;
   display: block;
   margin: 0 auto;
@@ -537,12 +576,19 @@ textarea.wordlist-spec {
 
 .wrap-shapes .shape,
 .wrap-themes .theme {
-  display: inline-block;
-  vertical-align: top;
   border: 3px solid #f0f0f0;
   padding: 2px 3px;
   cursor: pointer;
   background: #ffffff;
+}
+
+.wrap-themes .theme {
+  display: flex;
+}
+
+.wrap-shapes .shape {
+  display: inline-block;
+  vertical-align: top;
 }
 
 .wrap-themes {
@@ -583,14 +629,14 @@ textarea.wordlist-spec {
 
 .unitpalete .pbox.pbox-bkg {
   border-right: 4px solid transparent;
-  width: 31px;
-  height: 31px;
+  width: 26px;
+  height: 24px;
 }
 
 .unitpalete .pbox,
 .unitpalete .pbox .boxc {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 18px;
   display: inline-block;
 }
 
@@ -604,6 +650,7 @@ textarea.wordlist-spec {
 
 .unitpalete .pbox.randomize {
   width: auto;
+  line-height: 1.4;
   min-width: 90px;
   padding: 0 6px;
   border: 1px solid #dddddd;
@@ -647,12 +694,12 @@ textarea.wordlist-spec {
 .wrap-custom .wrap-color-custom .tab-content {
   border: 1px solid #dddddd;
   border-top: 0;
-  padding: 10px 12px;
+  padding: 8px 10px;
   background: #ffffff;
 }
 
 .wrap-custom .wrap-color-custom .tab-content .item {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .wrap-custom .wrap-color-custom .tab-content .item:last-child {

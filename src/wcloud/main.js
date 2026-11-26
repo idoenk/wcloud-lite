@@ -8,7 +8,7 @@
 
 import '../styles/todc-bs5.css';
 import '../styles/first-screen.css';
-import '../styles/wcloudfonts.css';
+import '../styles/wcloud-fonts.css';
 import '../styles/wordcloud.css';
 
 import { startApp } from './start.js';

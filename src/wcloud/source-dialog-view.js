@@ -10,6 +10,12 @@
 import { View } from './views.js';
 import { attachModalDrag } from './utils/draggable.js';
 
+const PANEL_TAB_MAP = {
+  example: 'example',
+  cp: 'copy-paste',
+  file: 'upload',
+};
+
 export class SourceDialogView extends View {
   constructor(opts) {
     super();
@@ -75,7 +81,7 @@ export class SourceDialogView extends View {
         if (!panelName || !this.panels[panelName]) {
           return;
         }
-        this.showPanel(this.panels[panelName]);
+        this.selectPanel(this.panels[panelName]);
         break;
       }
 
@@ -84,7 +90,7 @@ export class SourceDialogView extends View {
         if (!panelName || !this.panels[panelName]) {
           return;
         }
-        this.showPanel(this.panels[panelName]);
+        this.selectPanel(this.panels[panelName]);
         break;
       }
 
@@ -125,6 +131,14 @@ export class SourceDialogView extends View {
     return this.app.pushUrlHash(hash);
   }
 
+  selectPanel(panel) {
+    this.showPanel(panel);
+    const tabName = PANEL_TAB_MAP[panel.name];
+    if (tabName && this.app) {
+      this.app.pushUrlHash(`#tab:${tabName}`);
+    }
+  }
+
   showPanel(panel) {
     if (this.currentPanel) {
       this.currentPanel.hide();
@@ -156,7 +170,7 @@ export class SourceDialogView extends View {
       return;
     }
 
-    if (!this.currentPanel) {
+    if (!this.currentPanel || panel.selectionIndex < this.currentPanel.selectionIndex) {
       this.showPanel(panel);
     }
   }

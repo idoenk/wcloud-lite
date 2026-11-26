@@ -52,9 +52,9 @@ export function startApp() {
   app.addView(sourceDialogView);
 
   // First added panel is selected by default
+  sourceDialogView.addPanel(new ExamplePanelView());
   sourceDialogView.addPanel(new CPPanelView());
   sourceDialogView.addPanel(new FilePanelView());
-  sourceDialogView.addPanel(new ExamplePanelView());
 
   // Active fetchers only (Google+, COSCUP, Facebook, LocalFeed, Feed removed)
   app.addFetcher(new TextFetcher());

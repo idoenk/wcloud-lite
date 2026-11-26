@@ -38,6 +38,7 @@ export class ExamplePanelView extends PanelView {
       name: 'example',
       element: 'wc-panel-example',
       supportMsgElement: 'wc-panel-example-support-msg',
+      wikipediaTermElement: 'example-wikipedia-term',
     });
     this.checked = false;
   }
@@ -63,9 +64,20 @@ export class ExamplePanelView extends PanelView {
 
   submit() {
     const selected = this.element.querySelector('[name="example"]:checked');
-    if (selected) {
-      this.dialog.submit(`#${selected.value}`);
+    if (!selected) {
+      return;
     }
+
+    if (selected.value === 'wikipedia') {
+      const term =
+        (this.wikipediaTermElement?.value || '').trim() ||
+        this.wikipediaTermElement?.placeholder ||
+        'Cloud';
+      this.dialog.submit(`#wikipedia:${encodeURIComponent(term)}`);
+      return;
+    }
+
+    this.dialog.submit(`#${selected.value}`);
   }
 }
 

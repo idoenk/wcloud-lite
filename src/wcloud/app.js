@@ -683,6 +683,26 @@ export class WordCloudApp {
     const [dataType, data] = this.parseHash();
     this.logAction(`WordCloudApp::route::${dataType}`, data.slice(0, 128));
 
+    if (dataType === 'tab') {
+      const sourceDialog = this.views['source-dialog'];
+      const panelName = WordCloudApp.TAB_PANEL_MAP[data];
+      const panel = panelName && sourceDialog ? sourceDialog.panels[panelName] : null;
+
+      if (panel && !('isSupported' in panel && !panel.isSupported)) {
+        if (sourceDialog.currentPanel !== panel) {
+          sourceDialog.showPanel(panel);
+        }
+        if (this.currentUIState !== this.UI_STATE_SOURCE_DIALOG) {
+          this.switchUIState(this.UI_STATE_SOURCE_DIALOG);
+        }
+        this.logAction('WordCloudApp::route::source-dialog', panelName);
+        return;
+      }
+
+      this.reset();
+      return;
+    }
+
     const fetcherType = dataType.includes('.') ? dataType.split('.')[0] : dataType;
 
     if (fetcherType in this.fetchers) {
@@ -736,6 +756,12 @@ export class WordCloudApp {
     window.removeEventListener('hashchange', this);
   }
 }
+
+WordCloudApp.TAB_PANEL_MAP = {
+  example: 'example',
+  'copy-paste': 'cp',
+  upload: 'file',
+};
 
 WordCloudApp.prototype.UI_STATE_LOADING = 0;
 WordCloudApp.prototype.UI_STATE_SOURCE_DIALOG = 1;

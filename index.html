@@ -83,13 +83,13 @@
             <div class="col-12 col-md-3 col-source-menu">
               <ul id="wc-source-menu" class="nav nav-tabs nav-tabs-google nav-source flex-md-column" role="tablist">
                 <li class="nav-item" hidden>
+                  <a href="#" class="nav-link" data-l10n-id="source-example" data-panel="example"></a>
+                </li>
+                <li class="nav-item" hidden>
                   <a href="#" class="nav-link" data-l10n-id="source-cp" data-panel="cp"></a>
                 </li>
                 <li class="nav-item" hidden>
                   <a href="#" class="nav-link" data-l10n-id="source-file" data-panel="file"></a>
-                </li>
-                <li class="nav-item" hidden>
-                  <a href="#" class="nav-link" data-l10n-id="source-example" data-panel="example"></a>
                 </li>
               </ul>
             </div>
@@ -106,18 +106,25 @@
                 </div>
 
                 <div class="mb-2">
-                  <div class="form-check only-en-US">
+                  <div class="form-check only-en-US d-flex align-items-center gap-2">
                     <input
                       type="radio"
-                      class="form-check-input"
+                      class="form-check-input mt-0"
                       id="example-wikipedia-cloud"
                       name="example"
-                      value="wikipedia:Cloud"
+                      value="wikipedia"
                       checked
                     />
-                    <label class="form-check-label" for="example-wikipedia-cloud">
-                      <span data-l10n-id="panel-example-wikipedia-cloud"></span>
+                    <label class="form-check-label" for="example-wikipedia-term">
+                      <span data-l10n-id="panel-example-wikipedia-label"></span>
                     </label>
+                    <input
+                      type="text"
+                      class="form-control form-control-sm"
+                      id="example-wikipedia-term"
+                      placeholder="Cloud"
+                      style="max-width: 220px;"
+                    />
                   </div>
                 </div>
               </form>
@@ -432,17 +439,17 @@
                     </div>
 
                     <div class="itemwrap wrap-custom d-none">
-                      <div class="mb-2">
+                      <div class="mb-3">
                         <label for="font-custom" class="form-label">Font</label>
                         <div>
                           <select id="font-custom" class="form-select form-select-sm" style="max-width: 240px;"></select>
                         </div>
                       </div>
 
-                      <div class="mb-2 item">
+                      <div class="mb-3 item">
                         <label class="form-label d-block">Background Color</label>
                         <div class="wrap-action-result">
-                          <a href="#" class="color-result btn-pickcolor" id="btn-pickcolor" title="Select Color" data-current="Current Color"></a>
+                          <a href="#" class="color-result btn-pickcolor" id="btn-pickcolor" title="Select" data-current="Current"></a>
 
                           <div class="input-group input-group-sm igroup-backcolor d-none">
                             <span class="input-group-text">#</span>
@@ -454,9 +461,9 @@
                         <div id="wrap-color-picker" class="wrap-color-picker d-none"></div>
                       </div>
 
-                      <div class="mb-2">
+                      <div class="mb-3">
                         <label class="form-label d-block">Text Color</label>
-                        <div class="d-flex gap-3 mb-2">
+                        <div class="text-color-mode-wrap d-flex gap-3">
                           <div class="form-check form-check-inline">
                             <input type="radio" class="form-check-input" name="fontcolor" id="fcolor-custom" value="custom" />
                             <label class="form-check-label" for="fcolor-custom">Custom</label>
@@ -491,21 +498,23 @@
                             <div class="tab-pane active" id="lA" role="tabpanel">
                               <div class="item">
                                 <div class="d-flex flex-wrap align-items-center gap-2">
-                                  <span class="badge text-bg-secondary" title="Apply Highlight Color to N Topwords">N Topword</span>
+                                  <span class="form-label mb-0" title="Number of Topwords to highlight">N Topwords</span>
                                   <input type="text" id="nword" class="form-control form-control-sm d-inline-block" style="width: 50px;" maxlength="3" value="10" />
-                                  <div class="form-check ms-2 mb-0" title="Apply Highlight Color to specific words">
+                                  <div class="form-check ms-2 mb-0" title="Highlight Color to the specified words">
                                     <input type="checkbox" class="form-check-input" id="specific-word" />
-                                    <label class="form-check-label" for="specific-word">Specific Words</label>
+                                    <label class="form-check-label" for="specific-word">Specified Words</label>
                                   </div>
                                 </div>
                                 <div id="wrap-specific-wordlist" class="wrap-specific-wordlist mt-2 d-none">
-                                  <textarea id="specific-wordlist" class="form-control wordlist-spec code" rows="4"></textarea>
-                                  <div class="form-text">Separate word by new line; word is NOT case-sensitive</div>
+                                  <textarea id="specific-wordlist" class="form-control wordlist-spec code" rows="3"></textarea>
+                                  <div class="form-text">Separate each word or phrase by new line (not case sensitive)</div>
                                 </div>
                               </div>
 
                               <div class="item">
-                                <div class="mb-1"><span class="badge text-bg-secondary">Highlighted Word</span></div>
+                                <div class="mb-1">
+                                  <span class="form-label mb-0">Topwords Color</span>
+                                </div>
                                 <div class="wrap-action-result">
                                   <a href="#" class="color-result btn-pickcolor" id="btn-pickcolor-dualtone-topword" title="Select" data-current="Current"></a>
                                   <div class="input-group input-group-sm igroup-topword-color d-none">
@@ -518,7 +527,9 @@
                               </div>
 
                               <div class="item">
-                                <div class="mb-1"><span class="badge text-bg-secondary">Other Word</span></div>
+                                <div class="mb-1">
+                                  <span class="form-label mb-0">Other Words Color</span>
+                                </div>
                                 <div class="wrap-action-result">
                                   <a href="#" class="color-result btn-pickcolor" id="btn-pickcolor-dualtone-otherword" title="Select" data-current="Current"></a>
                                   <div class="input-group input-group-sm d-none">
@@ -605,33 +616,41 @@
               </div>
             </div>
 
-            <div class="form-section">
-              <label for="panel-possition" class="form-label">Panel</label>
-              <div>
-                <select id="panel-possition" class="form-select form-select-sm panel-pos" style="max-width: 220px;">
-                  <option value="fixed-bottom-left">Bottom Left</option>
-                  <option value="fixed-bottom">Bottom Center</option>
-                  <option value="fixed-top">Top Center</option>
-                </select>
-              </div>
-            </div>
-
             <div class="form-section mb-0">
-              <label class="form-label d-block">Normalize</label>
-              <div class="d-flex flex-wrap align-items-center gap-3">
-                <div class="form-check mb-0">
-                  <input type="checkbox" class="form-check-input" id="skew-normalize" />
-                  <label class="form-check-label" for="skew-normalize">Cosinus approximation</label>
+              <div class="row g-3">
+                <div class="col-12 col-md-5">
+                  <label for="panel-possition" class="form-label">Panel</label>
+                  <select id="panel-possition" class="form-select form-select-sm panel-pos" style="max-width: 220px;">
+                    <option value="fixed-bottom-left">Bottom Left</option>
+                    <option value="fixed-bottom">Bottom Center</option>
+                    <option value="fixed-top">Top Center</option>
+                  </select>
                 </div>
-                <input
-                  type="text"
-                  class="form-control form-control-sm skewvalue"
-                  id="skew-treshold"
-                  value="0.5"
-                  title="Skewness Curve Threshold, Valid Value: [0, 0.5]"
-                  style="width: 80px;"
-                  disabled
-                />
+
+                <div class="col-12 col-md-7">
+                  <label class="form-label d-block">Weight Scaling</label>
+                  <div class="d-flex flex-wrap align-items-center gap-2">
+                    <div class="form-check mb-0">
+                      <input type="checkbox" class="form-check-input" id="skew-normalize" />
+                      <label class="form-check-label" for="skew-normalize">Balance skewed weights</label>
+                    </div>
+                    <input
+                      type="number"
+                      class="form-control form-control-sm skewvalue"
+                      id="skew-treshold"
+                      value="0.5"
+                      min="0"
+                      max="0.5"
+                      step="0.05"
+                      title="Weight balance strength (0 to 0.5)"
+                      style="width: 78px;"
+                      disabled
+                    />
+                  </div>
+                  <div class="form-text mt-1">
+                    Reduces dominance of top words to prevent overlap in tight shapes (e.g. Star). Range: 0 – 0.5 (higher = stronger).
+                  </div>
+                </div>
               </div>
             </div>
           </div>

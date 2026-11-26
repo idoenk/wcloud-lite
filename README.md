@@ -47,7 +47,7 @@ Running `npm run build` compiles the app with Vite into fixed-name assets under 
 | `build/vendor-app.js` + `build/vendor-app.css` | External npm dependencies (`bootstrap` v5, `bootstrap-icons`, `vanilla-picker`, `store`). |
 | `build/wcloud-app.js` + `build/wcloud-app.css` | Custom `wcloud-lite` vanilla JS modules, adapters, custom TODC-BS5 theme, and bundled canvas fonts. |
 
-See [src/lib/timdream/SOURCES.md](./src/lib/timdream/SOURCES.md) for the exact upstream repository URLs, pinned commit SHAs, and rationale for vendored upstream files.
+See [src/lib/timdream/SOURCES.md](https://github.com/idoenk/wcloud-lite/blob/feature/modernize-structure/src/lib/timdream/SOURCES.md) for the exact upstream repository URLs, pinned commit SHAs, and rationale for vendored upstream files.
 
 ---
 
@@ -73,6 +73,8 @@ See [src/lib/timdream/SOURCES.md](./src/lib/timdream/SOURCES.md) for the exact u
 ---
 
 ## Development & Build
+
+> **Note:** The `gh-pages` branch contains static production assets only (`index.html` and `build/`). For full source code and Vite build setup, check out the [`feature/modernize-structure`](https://github.com/idoenk/wcloud-lite/tree/feature/modernize-structure) branch.
 
 Requires Node.js (`>= 18`).
 

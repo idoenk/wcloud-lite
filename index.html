@@ -1,77 +1,35 @@
 <!DOCTYPE html>
-<html data-l10n-id="html">
+<html data-l10n-id="html" lang="en-US">
 <head>
-  <meta charset=UTF-8>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title data-l10n-id="app-title"></title>
+  <title data-l10n-id="app-title">Word Cloud Generator</title>
 
-  <meta name="apple-mobile-web-app-title" content="Word Cloud">
-  <link rel="apple-touch-icon-precomposed" href="statics/wcloud/images/wordcloud-logo.png" />
+  <meta name="apple-mobile-web-app-title" content="Word Cloud" />
+  <link rel="icon" type="image/png" href="./build/images/wordcloud-logo.png" />
+  <link rel="apple-touch-icon" href="./build/images/wordcloud-logo.png" />
 
-  <meta name="description" content="Get the most frequent terms of posts of feeds in an tag cloud representation, powered by HTML5.">
-  <meta property="og:description" content="Get the most frequent terms of posts of feeds in an tag cloud representation, powered by HTML5." />
+  <meta name="description" content="Get the most frequent terms of text or word lists in a tag cloud representation, powered by HTML5." />
+  <meta property="og:description" content="Get the most frequent terms of text or word lists in a tag cloud representation, powered by HTML5." />
 
-  <link href="statics/wcloud/css/bootstrap-3.3.7.css" rel="stylesheet"/>
-  <link href="statics/wcloud/css/todc-bootstrap-3.3.7.css" type="text/css" rel="stylesheet" />
-  <link href="statics/wcloud/css/ie10-viewport-bug-workaround.css" type="text/css" rel="stylesheet" />
+  <link rel="prefetch" type="application/l10n" href="./build/locales/locales.ini" />
 
-  <link href="statics/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-  <link href="statics/css/colorpicker-theme.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="./build/vendor-app.css" />
+  <link rel="stylesheet" href="./build/wcloud-app.css" />
 
-  <link href="statics/wcloud/css/first-screen.css" type="text/css" rel="stylesheet" />
-  <link href="statics/wcloud/css/wordcloud.css" type="text/css" rel="stylesheet" >
+  <link rel="modulepreload" href="./build/timdream-app.js" />
+  <link rel="modulepreload" href="./build/vendor-app.js" />
 
-  <!--[if lt IE 9]>
-    <script src="statics/js/html5shiv.js"></script>
-    <script src="statics/js/respond.min.js"></script>
-  <![endif]-->
-
-  <link rel="prerender" type="application/l10n" href="statics/wcloud/locales/locales.ini?_=asdasd" />
-  <script type="text/javascript">
-  var 
-    _DEBUG_ = !0,
-    ASSET_WCLOUD_URI = "statics/wcloud/",
-    SITE_URL = '/';
-  </script>
-
-  <!-- For browser without Web Workers support, run the calculation
-       on the main event loop with the worker script. -->
-  <script src="statics/wcloud/wordfreq/src/wordfreq.worker.js?_=asdasd" defer></script>
-
-
-  <script src="statics/js/vendor/jquery-1.10.1.min.js" defer></script>
-  <script src="statics/js/vendor/jquery-ui-1.10.min.js" defer></script>
-  <script src="statics/js/vendor/jquery.event.ue.js" defer></script>
-  <script src="statics/js/vendor/bootstrap-3.3.7.js" defer></script>
-
-  <script src="statics/js/store.min.js" defer></script>
-  <script src="statics/js/colorpicker.min.js" defer></script>
-
-
-  <!-- build:js assets/app.min.js -->
-  <script src="statics/wcloud/vars.js" defer></script>
-  <script src="statics/wcloud/web-l10n/l10n.js" defer></script>
-  <script src="statics/wcloud/wordfreq/src/wordfreq.js" defer></script>
-  <script src="statics/wcloud/wordcloud2.js/src/wordcloud2.js" defer></script>
-  <script src="statics/wcloud/app.js" defer></script>
-  <script src="statics/wcloud/views.js" defer></script>
-  <script src="statics/wcloud/canvas-view.js" defer></script>
-  <script src="statics/wcloud/source-dialog-view.js" defer></script>
-  <script src="statics/wcloud/dashboard-view.js" defer></script>
-  <script src="statics/wcloud/sharer-dialog-view.js" defer></script>
-  <script src="statics/wcloud/panels.js" defer></script>
-  <script src="statics/wcloud/fetchers.js" defer></script>
-
-  <!-- endbuild -->
-
+  <!-- Sync fallback for environments without Web Workers support -->
+  <script src="./build/workers/wordfreq.worker.js" defer></script>
+  <script type="module" src="./build/wcloud-app.js"></script>
 </head>
 <body>
   <div id="wc-header-logo">
     <div id="headerlogo">
-      <a href="./" class="btn btn-small">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      <a href="./" class="btn btn-sm btn-flat" aria-label="Home">
+        <i class="bi bi-chevron-left" aria-hidden="true"></i>
       </a>
     </div>
   </div>
@@ -83,19 +41,6 @@
         <span id="wc-canvas-hover-label" data-l10n-id="hover-count"></span>
       </div>
     </div>
-    <div id="wc-canvas-layer" hidden></div>
-    <div id="wc-canvas-contextmenu" class="dropdown">
-      <ul class="dropdown-menu" role="menu">
-        <li><a class="ctx-edit danger" data-act="edit" href="javascript:;">Just Remove</a></li>
-        <li><a class="ctx-edit danger" data-act="edit" href="javascript:;">Remove &amp; Refresh</a></li>
-        <li class="divider"></li>
-        <li>
-          <div class="ctx-advance">&nbsp;<br/>
-            <button class="btn btn-xs btn-default">Foo</button>
-          </div>
-        </li>
-      </ul>
-    </div>
   </div>
 
   <div id="wc-loading">
@@ -105,417 +50,340 @@
     <div id="wc-loading-label" class="lead"></div>
   </div>
 
-
-  <div id="wc-source-dialog" class="modal" tabindex="-1" role="dialog" hidden>
+  <!-- Source Dialog -->
+  <div id="wc-source-dialog" class="modal draggable" tabindex="-1" role="dialog" hidden>
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header clearfix">
-          <h3 data-l10n-id="source-dialog-title" id="wc-source-title" class="pull-left"></h3>
-          <div class="pull-right">
-            <select id="wc-source-selection" class="input-medium hide"></select>
-            <button data-l10n-id="source-dialog-option-btn_NO-TEXT" id="wc-source-option-btn" class="btn btn-default btn-flat btn-setting-dialog">
-              <i class="fa fa-cog" aria-hidden="true"></i>
+        <div class="modal-header d-flex justify-content-between align-items-center">
+          <h3 data-l10n-id="source-dialog-title" id="wc-source-title" class="modal-title"></h3>
+          <div class="d-flex align-items-center gap-1">
+            <select id="wc-source-selection" class="form-select form-select-sm d-none"></select>
+            <button
+              type="button"
+              data-l10n-id="source-dialog-option-btn"
+              id="wc-source-option-btn"
+              class="btn btn-default btn-flat btn-setting-dialog"
+              aria-label="Settings"
+            >
+              <i class="bi bi-gear-fill" aria-hidden="true"></i>
             </button>
-            <button data-l10n-id="source-dialog-about-btn_NO-TEXT" id="wc-source-about-btn" class="btn btn-default btn-flat btn-setting-about">
-              <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+            <button
+              type="button"
+              data-l10n-id="source-dialog-about-btn"
+              id="wc-source-about-btn"
+              class="btn btn-default btn-flat btn-setting-about"
+              aria-label="About"
+            >
+              <i class="bi bi-question-circle" aria-hidden="true"></i>
             </button>
           </div>
         </div>
         <div class="modal-body">
-          <div class="row row-flex">
-            <div class="col-xs-12 col-md-3 col-source-menu">
-              <div class="tabbable tabs-left">
-                <ul id="wc-source-menu" class="nav nav-tabs nav-tabs-google nav-source" role="tablist">
-                  <li hidden>
-                    <a href="#" data-l10n-id="source-cp" data-panel="cp"></a></li>
-                  <li hidden>
-                    <a href="#" data-l10n-id="source-file" data-panel="file"></a></li>
-                  <li hidden>
-                    <a href="#" data-l10n-id="source-example" data-panel="example"></a></li>
-                </ul>
-              </div>
+          <div class="row">
+            <div class="col-12 col-md-3 col-source-menu">
+              <ul id="wc-source-menu" class="nav nav-tabs nav-tabs-google nav-source flex-md-column" role="tablist">
+                <li class="nav-item" hidden>
+                  <a href="#" class="nav-link" data-l10n-id="source-cp" data-panel="cp"></a>
+                </li>
+                <li class="nav-item" hidden>
+                  <a href="#" class="nav-link" data-l10n-id="source-file" data-panel="file"></a>
+                </li>
+                <li class="nav-item" hidden>
+                  <a href="#" class="nav-link" data-l10n-id="source-example" data-panel="example"></a>
+                </li>
+              </ul>
             </div>
-            <div class="col-xs-12 col-md-9" id="wc-source-panels">
-
+            <div class="col-12 col-md-9" id="wc-source-panels">
               <form id="wc-panel-example" hidden>
-                <div id="wc-panel-example-support-msg" class="alert alert-block alert-warning" hidden>
+                <div id="wc-panel-example-support-msg" class="alert alert-warning" hidden>
                   <h4 data-l10n-id="browser-partial-support-title"></h4>
                   <span data-l10n-id="browser-partial-support-message"></span>
                 </div>
 
-                <div class="alert alert-block alert-info only-en-US">
+                <div class="alert alert-info only-en-US">
                   <h4>How can I get my own word cloud?</h4>
-                  <p><small>Unfortunately, Google and Facebook has closed their API services.
-                  Word Cloud can no longer access your data without these services.</small></p>
-                  <p><small>In the meantime, you could supply text or file directly on the left.</small></p>
+                  <p><small>Supply your own word list or bulk text directly using Copy &amp; Paste or Upload File on the left.</small></p>
                 </div>
 
-                <div class="form-group">
-                  <div class="radio">
-                    <label class="control-label only-en-US">
-                      <input type="radio" name="example" 
-                        value="wikipedia:Cloud" checked>
+                <div class="mb-2">
+                  <div class="form-check only-en-US">
+                    <input
+                      type="radio"
+                      class="form-check-input"
+                      id="example-wikipedia-cloud"
+                      name="example"
+                      value="wikipedia:Cloud"
+                      checked
+                    />
+                    <label class="form-check-label" for="example-wikipedia-cloud">
                       <span data-l10n-id="panel-example-wikipedia-cloud"></span>
                     </label>
                   </div>
-
                 </div>
               </form>
 
               <form id="wc-panel-cp" hidden>
-                <div class="form-group">
-                  <label data-l10n-id="panel-cp-label" for="wc-panel-cp-textarea" class="control-label"></label>
-                  <div class="controls">
-                    <textarea id="wc-panel-cp-textarea" class="form-control input-block-level" rows="10"></textarea>
-                    <span data-l10n-id="panel-cp-help" class="help-block"></span>
-                  </div>
+                <div class="mb-2">
+                  <label data-l10n-id="panel-cp-label" for="wc-panel-cp-textarea" class="form-label"></label>
+                  <textarea id="wc-panel-cp-textarea" class="form-control" rows="6"></textarea>
+                  <div data-l10n-id="panel-cp-help" class="form-text"></div>
                 </div>
 
-                <div class="form-group">
-                  <label data-l10n-id="panel-cp-texttype" for="wc-panel-texttype" class="control-label"></label>
-                  <div class="controls">
-                    <div class="form-select inlineblock">
-                      <select id="wc-panel-texttype" class="form-control" style="width: 120px;">
-                        <option value="wordlist" data-l10n-id="panel-cp-wordlist"></option>
-                        <option value="bulktext" data-l10n-id="panel-cp-bultext"></option>
-                      </select>
-                      <span class="caret"></span>
-                    </div>
-                    <span data-l10n-id="panel-cp-texttype-help" class="help-block"></span>
+                <div class="mb-2">
+                  <label data-l10n-id="panel-cp-texttype" for="wc-panel-texttype" class="form-label"></label>
+                  <div>
+                    <select id="wc-panel-texttype" class="form-select form-select-sm d-inline-block" style="width: 140px;">
+                      <option value="wordlist" data-l10n-id="panel-cp-wordlist"></option>
+                      <option value="bulktext" data-l10n-id="panel-cp-bultext"></option>
+                    </select>
                   </div>
+                  <div data-l10n-id="panel-cp-texttype-help" class="form-text"></div>
                 </div>
-                
 
                 <div id="additional-wordlist-prop">
-                  <div class="form-group">
-                    <label data-l10n-id="panel-cp-formatorder" for="wc-panel-formatorder" class="control-label"></label>
-                    <div class="controls">
-                      <div class="form-select inlineblock">
-                        <select id="wc-panel-formatorder" class="form-control" style="width: 150px;">
-                          <option value="wordfreq" data-l10n-id="panel-cp-wordfreq"></option>
-                          <option value="freqword" data-l10n-id="panel-cp-freqword"></option>
-                        </select>
-                        <span class="caret"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label data-l10n-id="panel-cp-separator" for="wc-panel-separator" class="control-label"></label>
-                    <div class="controls">
-                      <div class="form-select inlineblock">
-                        <select id="wc-panel-separator" class="form-control" style="width: 120px;">
-                          <option value="sep_colon" data-l10n-id="panel-cp-sep_colon"></option>
-                          <option value="sep_tab" data-l10n-id="panel-cp-sep_tab"></option>
-                          <option value="sep_comma" data-l10n-id="panel-cp-sep_comma"></option>
-                          <option value="sep_semicolon" data-l10n-id="panel-cp-sep_semicolon"></option>
-                          <option value="sep_pipe" data-l10n-id="panel-cp-sep_pipe"></option>
-                          <option value="sep_space" data-l10n-id="panel-cp-sep_space"></option>
-                        </select>
-                        <span class="caret"></span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>             
-              
-              <form id="wc-panel-file" hidden>
-                <div class="form-group">
-                  <label data-l10n-id="panel-file-label" for="wc-panel-file-file" class="control-label"></label>
-                  <div class="controls">
-                    <a class="btn btn-default file-wrapper">
-                      <span data-l10n-id="panel-file-browse"></span>
-                      <input type="file" accept="text/plain" id="wc-panel-file-file">
-                    </a><span data-l10n-id="n-file-selected" data-l10n-args='{ "n": 0 }' id="wc-panel-file-file-label"></span>
-                    <span data-l10n-id="panel-file-help" class="help-block"></span>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label data-l10n-id="panel-file-contenttype" for="wc-panel-contenttype" class="control-label"></label>
-                  <div class="controls">
-                    <div class="form-select inlineblock">
-                      <select id="wc-panel-contenttype" class="form-control" style="width: 120px;">
-                        <option value="wordlist">Word List</option>
-                        <option value="bulktext">Bulk Text</option>
+                  <div class="mb-2">
+                    <label data-l10n-id="panel-cp-formatorder" for="wc-panel-formatorder" class="form-label"></label>
+                    <div>
+                      <select id="wc-panel-formatorder" class="form-select form-select-sm d-inline-block" style="width: 170px;">
+                        <option value="wordfreq" data-l10n-id="panel-cp-wordfreq"></option>
+                        <option value="freqword" data-l10n-id="panel-cp-freqword"></option>
                       </select>
-                      <span class="caret"></span>
-                    </div>
-                    <span data-l10n-id="panel-file-contenttype-help" class="help-block"></span>
-                  </div>
-                </div>
-
-
-                <div id="additional-panel-wordlist-prop">
-                  <div class="form-group">
-                    <label data-l10n-id="panel-file-formatorder" for="wc-panel-file-formatorder" class="control-label"></label>
-                    <div class="controls">
-                      <div class="form-select inlineblock">
-                        <select id="wc-panel-file-formatorder" class="form-control" style="width: 150px;">
-                          <option value="wordfreq" data-l10n-id="panel-file-wordfreq"></option>
-                          <option value="freqword" data-l10n-id="panel-file-freqword"></option>
-                        </select>
-                        <span class="caret"></span>
-                      </div>
                     </div>
                   </div>
-
-                  <div class="form-group">
-                    <label data-l10n-id="panel-file-separator" for="wc-panel-file-separator" class="control-label"></label>
-                    <div class="controls">
-                      <div class="form-select inlineblock">
-                        <select id="wc-panel-file-separator" class="form-control" style="width: 120px;">
-                          <option value="sep_colon" data-l10n-id="panel-file-sep_colon"></option>
-                          <option value="sep_tab" data-l10n-id="panel-file-sep_tab"></option>
-                          <option value="sep_comma" data-l10n-id="panel-file-sep_comma"></option>
-                          <option value="sep_semicolon" data-l10n-id="panel-file-sep_semicolon"></option>
-                          <option value="sep_pipe" data-l10n-id="panel-file-sep_pipe"></option>
-                          <option value="sep_space" data-l10n-id="panel-file-sep_space"></option>
-                        </select>
-                        <span class="caret"></span>
-                      </div>
+                  <div class="mb-2">
+                    <label data-l10n-id="panel-cp-separator" for="wc-panel-separator" class="form-label"></label>
+                    <div>
+                      <select id="wc-panel-separator" class="form-select form-select-sm d-inline-block" style="width: 150px;">
+                        <option value="sep_colon" data-l10n-id="panel-cp-sep_colon"></option>
+                        <option value="sep_tab" data-l10n-id="panel-cp-sep_tab"></option>
+                        <option value="sep_comma" data-l10n-id="panel-cp-sep_comma"></option>
+                        <option value="sep_semicolon" data-l10n-id="panel-cp-sep_semicolon"></option>
+                        <option value="sep_pipe" data-l10n-id="panel-cp-sep_pipe"></option>
+                        <option value="sep_space" data-l10n-id="panel-cp-sep_space"></option>
+                      </select>
                     </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label data-l10n-id="panel-file-encoding" for="wc-panel-file-encoding" class="control-label"></label>
-                  <div class="controls">
-                    <input type="text" id="wc-panel-file-encoding" class="form-control" value="UTF-8" style="max-width: 150px;" placeholder="File encoding, eg. utf-8"/>
-                    <span data-l10n-id="panel-file-encoding-help" class="help-block"></span>
                   </div>
                 </div>
               </form>
+
+              <form id="wc-panel-file" hidden>
+                <div class="mb-2">
+                  <label data-l10n-id="panel-file-label" for="wc-panel-file-file" class="form-label d-block"></label>
+                  <div class="d-flex align-items-center gap-2">
+                    <label class="btn btn-default btn-sm file-wrapper mb-0">
+                      <span data-l10n-id="panel-file-browse"></span>
+                      <input type="file" accept="text/plain,.txt" id="wc-panel-file-file" />
+                    </label>
+                    <span data-l10n-id="n-file-selected" data-l10n-args='{ "n": 0 }' id="wc-panel-file-file-label"></span>
+                  </div>
+                  <div data-l10n-id="panel-file-help" class="form-text"></div>
+                </div>
+
+                <div class="mb-2">
+                  <label data-l10n-id="panel-file-contenttype" for="wc-panel-contenttype" class="form-label"></label>
+                  <div>
+                    <select id="wc-panel-contenttype" class="form-select form-select-sm d-inline-block" style="width: 140px;">
+                      <option value="wordlist" data-l10n-id="panel-cp-wordlist">Word List</option>
+                      <option value="bulktext" data-l10n-id="panel-cp-bultext">Bulk Text</option>
+                    </select>
+                  </div>
+                  <div data-l10n-id="panel-file-contenttype-help" class="form-text"></div>
+                </div>
+
+                <div id="additional-panel-wordlist-prop">
+                  <div class="mb-2">
+                    <label data-l10n-id="panel-file-formatorder" for="wc-panel-file-formatorder" class="form-label"></label>
+                    <div>
+                      <select id="wc-panel-file-formatorder" class="form-select form-select-sm d-inline-block" style="width: 170px;">
+                        <option value="wordfreq" data-l10n-id="panel-file-wordfreq"></option>
+                        <option value="freqword" data-l10n-id="panel-file-freqword"></option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mb-2">
+                    <label data-l10n-id="panel-file-separator" for="wc-panel-file-separator" class="form-label"></label>
+                    <div>
+                      <select id="wc-panel-file-separator" class="form-select form-select-sm d-inline-block" style="width: 150px;">
+                        <option value="sep_colon" data-l10n-id="panel-file-sep_colon"></option>
+                        <option value="sep_tab" data-l10n-id="panel-file-sep_tab"></option>
+                        <option value="sep_comma" data-l10n-id="panel-file-sep_comma"></option>
+                        <option value="sep_semicolon" data-l10n-id="panel-file-sep_semicolon"></option>
+                        <option value="sep_pipe" data-l10n-id="panel-file-sep_pipe"></option>
+                        <option value="sep_space" data-l10n-id="panel-file-sep_space"></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-2">
+                  <label data-l10n-id="panel-file-encoding" for="wc-panel-file-encoding" class="form-label"></label>
+                  <input
+                    type="text"
+                    id="wc-panel-file-encoding"
+                    class="form-control form-control-sm"
+                    value="UTF-8"
+                    style="max-width: 150px;"
+                    placeholder="File encoding, eg. utf-8"
+                  />
+                  <div data-l10n-id="panel-file-encoding-help" class="form-text"></div>
+                </div>
+              </form>
             </div>
-            <div class="clearfix"></div>
+          </div>
+          <div class="wc-privacy-note" role="note">
+            <i class="bi bi-shield-check" aria-hidden="true"></i>
+            <span data-l10n-id="source-privacy-note"></span>
           </div>
         </div>
-        <div class="modal-footer">
-          <div data-l10n-id="language-title" class="input-prepend pull-left" title="Language" hidden>
-            <span class="add-on"><i class="icon-globe"></i></span>
-            <select id="wc-language" class="input-small">
+        <div class="modal-footer d-flex justify-content-between align-items-center">
+          <div data-l10n-id="language-title" class="input-group input-group-sm w-auto" title="Language" hidden>
+            <span class="input-group-text"><i class="bi bi-globe" aria-hidden="true"></i></span>
+            <select id="wc-language" class="form-select form-select-sm">
               <option value="en-US" selected>English</option>
               <option value="zh-TW" hidden>正體中文</option>
             </select>
           </div>
-
-          <button data-l10n-id="source-dialog-start-btn" id="wc-source-start-btn" class="btn btn-primary"></button>
+          <button type="button" data-l10n-id="source-dialog-start-btn" id="wc-source-start-btn" class="btn btn-primary ms-auto"></button>
         </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+      </div>
+    </div>
+  </div>
 
+  <!-- Dashboard Toolbar -->
   <div id="wc-dashboard" class="fixed-bottom-left" hidden>
     <div class="container">
       <div class="navbar">
         <div class="navbar-inner">
           <div class="btn-group">
-            <button data-l10n-id="dashboard-back-btn" data-action="back" class="btn btn-small btn-danger">
-              <i class="fa fa-arrow-circle-left" aria-hidden="true"></i><span data-l10n-id="dashboard-back-span"></span>
+            <button type="button" data-l10n-id="dashboard-back-btn" data-action="back" class="btn btn-sm btn-danger">
+              <i class="bi bi-arrow-left-circle-fill" aria-hidden="true"></i><span data-l10n-id="dashboard-back-span"></span>
             </button>
-            <button data-action="option" class="btn btn-small btn-default" data-canvas-ctl>
-              <i class="fa fa-cog" aria-hidden="true"></i><span data-l10n-id="dashboard-option"></span>
+            <button type="button" data-action="option" class="btn btn-sm btn-default" data-canvas-ctl>
+              <i class="bi bi-gear-fill" aria-hidden="true"></i><span data-l10n-id="dashboard-option"></span>
             </button>
           </div>
-
 
           <div class="btn-group">
-            <button data-l10n-id="dashboard-refresh-btn" data-canvas-ctl data-action="refresh" class="btn btn-default btn-small disabled hide-label">
-              <i class="fa fa-refresh" aria-hidden="true"></i><span data-l10n-id="dashboard-refresh-span"></span>
+            <button type="button" data-l10n-id="dashboard-refresh-btn" data-canvas-ctl data-action="refresh" class="btn btn-default btn-sm disabled hide-label">
+              <i class="bi bi-arrow-clockwise" aria-hidden="true"></i><span data-l10n-id="dashboard-refresh-span"></span>
             </button>
-            <button data-l10n-id="dashboard-theme-btn" data-canvas-ctl data-action="theme" class="btn btn-default btn-small disabled">
-              <i class="fa fa-gift" aria-hidden="true"></i><span data-l10n-id="dashboard-theme-span"></span>
+            <button type="button" data-l10n-id="dashboard-theme-btn" data-canvas-ctl data-action="theme" class="btn btn-default btn-sm disabled">
+              <i class="bi bi-palette-fill" aria-hidden="true"></i><span data-l10n-id="dashboard-theme-span"></span>
             </button>
-            <button data-l10n-id="dashboard-shape-btn" data-canvas-ctl data-action="shape" class="btn btn-default btn-small disabled">
-              <i class="fa fa-star" aria-hidden="true"></i><span data-l10n-id="dashboard-shape-span"></span>
+            <button type="button" data-l10n-id="dashboard-shape-btn" data-canvas-ctl data-action="shape" class="btn btn-default btn-sm disabled">
+              <i class="bi bi-star-fill" aria-hidden="true"></i><span data-l10n-id="dashboard-shape-span"></span>
             </button>
-            <button data-l10n-id="dashboard-list-btn" data-canvas-ctl data-action="edit" class="btn btn-default btn-small disabled">
-              <i class="fa fa-pencil-square-o" aria-hidden="true"></i><span data-l10n-id="dashboard-list-span"></span>
+            <button type="button" data-l10n-id="dashboard-list-btn" data-canvas-ctl data-action="edit" class="btn btn-default btn-sm disabled">
+              <i class="bi bi-pencil-square" aria-hidden="true"></i><span data-l10n-id="dashboard-list-span"></span>
             </button>
           </div>
 
+          <div class="btn-group dropup">
+            <button
+              type="button"
+              id="btn-pickfont"
+              data-l10n-id="dashboard-fonts-btn"
+              data-canvas-ctl
+              class="btn btn-default btn-sm dropdown-toggle disabled hide-label"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-fonts" aria-hidden="true"></i><span data-l10n-id="dashboard-fonts-span"></span>
+            </button>
+            <ul id="dashboard-dropdown-fonts" class="dropdown-menu"></ul>
+
+            <button type="button" data-l10n-id="dashboard-enlarge-btn" data-canvas-ctl data-action="size+" class="btn btn-default btn-sm disabled hide-label">
+              <i class="bi bi-type" aria-hidden="true"></i><span data-l10n-id="dashboard-enlarge-span"></span>
+            </button>
+            <button type="button" data-l10n-id="dashboard-shrink-btn" data-canvas-ctl data-action="size-" class="btn btn-default btn-sm disabled hide-label">
+              <i class="bi bi-type smaller-icon" aria-hidden="true"></i><span data-l10n-id="dashboard-shrink-span"></span>
+            </button>
+          </div>
 
           <div class="btn-group">
-            <button id="btn-pickfont" data-l10n-id="dashboard-fonts-btn" data-canvas-ctl class="btn btn-default btn-small dropdown-toggle disabled hide-label" data-toggle="dropdown">
-              <i class="fa fa-font-awesome" aria-hidden="true"></i>
-              <span data-l10n-id="dashboard-fonts-span"></span><span class="caret"></span>
+            <button type="button" data-l10n-id="dashboard-disperse-btn" data-canvas-ctl data-action="gap+" class="btn btn-default btn-sm disabled hide-label">
+              <i class="bi bi-arrows-angle-expand" aria-hidden="true"></i><span data-l10n-id="dashboard-disperse-span"></span>
             </button>
-            <ul id="dashboard-dropdown-fonts" class="dropdown-menu">
-              <!-- dropdown menu links
-              <li><a href="#">Item #1</a></li>
-              <li><a href="#">Item #2</a></li>
-              <li><a href="#">Item #3</a></li>
-              -->
-            </ul>
-
-            <button data-l10n-id="dashboard-enlarge-btn" data-canvas-ctl data-action="size+" class="btn btn-default btn-small disabled hide-label">
-              <i class="fa fa-font" aria-hidden="true"></i><span data-l10n-id="dashboard-enlarge-span"></span>
-            </button>
-            <button data-l10n-id="dashboard-shrink-btn" data-canvas-ctl data-action="size-" class="btn btn-default btn-small disabled hide-label">
-              <i class="fa fa-font smaller-icon" aria-hidden="true"></i><span data-l10n-id="dashboard-shrink-span"></span>
+            <button type="button" data-l10n-id="dashboard-gather-up-btn" data-canvas-ctl data-action="gap-" class="btn btn-default btn-sm disabled hide-label">
+              <i class="bi bi-arrows-angle-contract" aria-hidden="true"></i><span data-l10n-id="dashboard-gather-up-span"></span>
             </button>
           </div>
 
-
-          <div class="btn-group">
-            <button data-l10n-id="dashboard-disperse-btn" data-canvas-ctl data-action="gap+" class="btn btn-default btn-small disabled hide-label">
-              <i class="fa fa-expand" aria-hidden="true"></i><span data-l10n-id="dashboard-disperse-span"></span>
-            </button>
-            <button data-l10n-id="dashboard-gather-up-btn" data-canvas-ctl data-action="gap-" class="btn btn-default btn-small disabled hide-label">
-              <i class="fa fa-compress" aria-hidden="true"></i><span data-l10n-id="dashboard-gather-up-span"></span>
-            </button>
-          </div>
-
-
-          <div class="pull-right group-actionprimary">
+          <div class="group-actionprimary">
             <div class="btn-group">
-              <a data-l10n-id="dashboard-save-disk-btn" data-canvas-ctl download="wordcloud.png" href="#" data-action="save" class="btn btn-small btn-success disabled">
-                <i class="fa fa-hdd-o" aria-hidden="true"></i><span data-l10n-id="dashboard-save-disk-span"></span>
+              <a
+                data-l10n-id="dashboard-save-disk-btn"
+                data-canvas-ctl
+                download="wordcloud.png"
+                href="#"
+                data-action="save"
+                class="btn btn-sm btn-success disabled"
+              >
+                <i class="bi bi-download" aria-hidden="true"></i><span data-l10n-id="dashboard-save-disk-span"></span>
               </a>
             </div>
 
-            <div class="btn-group">
-              <button data-l10n-id="dashboard-share-btn" data-canvas-ctl data-action="share" class="btn btn-small disabled btn-primary">
-                <i class="fa fa-share-square" aria-hidden="true"></i><span data-l10n-id="dashboard-share-span"></span>
-              </button>
-            </div>
-
             <div class="btn-group group-offsetright">
-              <button data-l10n-id="dashboard-toggle-btn" data-action="toogle-hide" class="btn btn-small btn-supersmall">
-                <i class="fa fa-angle-left" aria-hidden="true"></i>
+              <button type="button" data-l10n-id="dashboard-toggle-btn" data-action="toogle-hide" class="btn btn-sm btn-default btn-supersmall" aria-label="Hide panel">
+                <i class="bi bi-chevron-left" aria-hidden="true"></i>
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="wrap-toogleside hide">
-        <button class="btn btn-flat btn-sidesmall" data-action="toogle-show" >
-          <i class="fa fa-angle-right" aria-hidden="true"></i>
+      <div class="wrap-toogleside d-none">
+        <button type="button" class="btn btn-flat btn-sidesmall" data-action="toogle-show" aria-label="Show panel">
+          <i class="bi bi-chevron-right" aria-hidden="true"></i>
         </button>
       </div>
     </div>
   </div>
 
+  <!-- Edit List Dialog -->
   <div id="wc-list-dialog" class="modal escapable draggable" tabindex="-1" role="dialog" hidden>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h3 data-l10n-id="list-dialog-label" for="wc-list-edit"></h3>
+          <h3 data-l10n-id="list-dialog-label" class="modal-title"></h3>
+          <button type="button" class="btn-close" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <textarea id="wc-list-edit" class="form-control input-block-level" rows="14"></textarea>
-            <span data-l10n-id="list-dialog-help" class="help-block"></span>
+          <textarea id="wc-list-edit" class="form-control code" rows="14"></textarea>
+          <div data-l10n-id="list-dialog-help" class="form-text"></div>
         </div>
         <div class="modal-footer">
-          <button data-l10n-id="list-dialog-cancel-btn" id="wc-list-cancel-btn" class="btn btn-default btn-close"></button>
-          <button data-l10n-id="list-dialog-confirm-btn" id="wc-list-confirm-btn" class="btn btn-primary"></button>
+          <button type="button" data-l10n-id="list-dialog-cancel-btn" id="wc-list-cancel-btn" class="btn btn-default"></button>
+          <button type="button" data-l10n-id="list-dialog-confirm-btn" id="wc-list-confirm-btn" class="btn btn-primary"></button>
         </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+      </div>
+    </div>
+  </div>
 
-  <div id="wc-sharer-dialog" class="modal escapable draggable" tabindex="-1" role="dialog" hidden>
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h3 id="wc-sharer-title" data-l10n-id="share-dialog-title"></h3>
-        </div>
-        <div class="modal-body">
-          <div class="row row-flex">
-            <div class="col-xs-12 col-md-4">
-              <a class="thumbnail" id="wc-sharer-img-link" target="_blank">
-                <img id="wc-sharer-img" />
-              </a>
-              <p data-l10n-id="share-dialog-terms"></p>
-              <p class="well well-small" id="wc-sharer-terms"></p>
-              <p data-l10n-id="share-dialog-hashtag"></p>
-              <p class="well well-small" id="wc-sharer-hashtag"></p>
-            </div>
-            <div class="col-xs-12 col-md-8">
-              <input type="text" data-l10n-id="share-dialog-title-input" id="wc-sharer-title-input" class="form-control input-block-level" />
-              <textarea id="wc-sharer-desc" class="form-control input-block-level"  data-l10n-id="share-dialog-desc-input" rows="5" style="min-height: 60px;"></textarea>
-
-              <div class="progress progress-striped active">
-                <div class="bar" id="wc-sharer-progress"></div>
-              </div>
-
-              <p data-l10n-id="cors-description" class="help-block"></p>
-
-              <p class="wc-sharer-service">
-                <span class="wc-sharer-service-title"><i class="favicons-imgur"></i>Imgur</span>
-                <a target="_blank" id="wc-sharer-imgur-status" class="disabled" data-l10n-id="loading"></a>
-              </p>
-
-              <p class="wc-sharer-service">
-                <span class="wc-sharer-service-title"><i class="favicons-facebook"></i>Facebook</span>
-                <a target="_blank" id="wc-sharer-facebook-status" class="disabled" data-l10n-id="loading"></a>
-              </p>
-
-              <p class="wc-sharer-service">
-                <span class="wc-sharer-service-title"><i class="favicons-tumblr"></i>Tumblr</span>
-                <a target="_blank" id="wc-sharer-tumblr-status" class="disabled" data-l10n-id="loading"></a>
-              </p>
-
-              <p class="wc-sharer-service">
-                <span class="wc-sharer-service-title"><i class="favicons-twitter"></i>Twitter</span>
-                <a target="_blank" id="wc-sharer-twitter-status" class="disabled" data-l10n-id="loading"></a>
-              </p>
-
-              <p class="wc-sharer-service">
-                <span class="wc-sharer-service-title"><i class="favicons-plurk"></i>Plurk</span>
-                <a target="_blank" id="wc-sharer-plurk-status" class="disabled" data-l10n-id="loading"></a>
-              </p>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button data-l10n-id="share-dialog-reupload-btn" id="wc-sharer-reupload-btn" class="btn btn-default"></button>
-          <button data-l10n-id="share-dialog-done-btn" id="wc-sharer-done-btn" class="btn btn-primary">Done</button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-
+  <!-- About Dialog -->
   <div id="wc-about-dialog" class="modal escapable" tabindex="-1" role="dialog" hidden>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-remoteclick="#wc-about-close-btn">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h3 data-l10n-id="about-dialog-title" id="wc-about-title"></h3>
+          <h3 data-l10n-id="about-dialog-title" id="wc-about-title" class="modal-title"></h3>
+          <button type="button" class="btn-close" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div id="wc-about-icon" class="well">
+          <div id="wc-about-icon" class="todc-well">
             <div class="wc-icon" lang="en">
               <span class="wc-icon-cloud"></span>
             </div>
           </div>
           <div id="wc-about-content">
             <h2>HTML5 Word Cloud</h2>
-            <div>Copyright 2011, 2013 <a href="http://timdream.org/">Timothy Guan-tin Chien</a> and other contributors. Released under the <a href="http://timc.idv.tw/wordcloud/MIT-LICENSE.txt">MIT license</a>.</div>
-
-            <div>
-              <a href="https://github.com/timdream/wordcloud">Source code</a> available on Github. Contribution welcome.
-            </div>
-            <div>
-              Read the <a href="https://github.com/timdream/wordcloud/blob/master/README.md">README</a> to know more about the technologies and services employed. Contact the author or leave <a href="https://github.com/timdream/wordcloud/issues">an issue on Github</a> for questions and inquiries.
-            </div>
-
-            <p>&mdash;</p>
-            <div>
-              Forked repository: <a href="https://github.com/idoenk/wcloud-lite" target=_blank>idoenk/wcloud-lite</a>
-            </div>
-            <div>
-              Preview: <a href="https://idoenk.github.io/wcloud-lite/" target=_blank>wcloud-lite generator</a>
-            </div>
+            <p class="mb-2">Copyright 2011, 2013–2019 <a href="https://timdream.org/">Timothy Guan-tin Chien</a> and other contributors.<br />Modified work Copyright (c) 2026 Idx. Released under the <a href="./MIT-LICENSE.txt">MIT license</a>.</p>
+            <p class="mb-2">Origin repository: <a href="https://github.com/timdream/wordcloud">timdream/wordcloud</a> (<a href="https://github.com/timdream/wordcloud/blob/main/README.md">upstream README</a>).</p>
+            <p class="mb-2">Forked repository: <a href="https://github.com/idoenk/wcloud-lite" target="_blank" rel="noopener noreferrer">idoenk/wcloud-lite</a> &middot; Preview: <a href="https://idoenk.github.io/wcloud-lite/" target="_blank" rel="noopener noreferrer">wcloud-lite generator</a></p>
+            <hr class="my-2" />
+            <h3>Privacy</h3>
+            <p class="mb-1"><strong>The actual content of the file or copy-pasted text is not transmitted to any server in any form.</strong> Everything is processed on your computer directly, employing technologies in the browser known collectively as <em>HTML5</em>.</p>
+            <p class="mb-0 text-muted"><small>No analytics or tracking scripts are included. Only the optional Wikipedia example fetches public article text directly from Wikipedia's MediaWiki API.</small></p>
           </div>
 
           <div id="wc-about-donate" hidden>
@@ -525,312 +393,265 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button data-l10n-id="about-dialog-close-btn" id="wc-about-close-btn" class="btn btn-primary btn-close"></button>
+          <button type="button" data-l10n-id="about-dialog-close-btn" id="wc-about-close-btn" class="btn btn-primary"></button>
         </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+      </div>
+    </div>
+  </div>
 
-
+  <!-- Option / Settings Dialog -->
   <div id="wc-option-dialog" class="modal escapable draggable" tabindex="-1" role="dialog" hidden>
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-remoteclick="#wc-option-close-btn">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h3 data-l10n-id="option-dialog-title" id="wc-option-title"></h3>
+          <h3 data-l10n-id="option-dialog-title" id="wc-option-title" class="modal-title"></h3>
+          <button type="button" class="btn-close" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div id="wc-option-content">
-            <div class="form" role="form">
-
-              <div class="form-group">
-                <label for="inputTheme">Themes</label>
-                
-                <div class="controls">
-                  <div class="row row-flex">
-                    <div class="col-xs-12 col-md-3 col-theme-menu">
-                      <div class="tabbable">
-                        <ul class="nav nav-tabs nav-tabs-google nav-source menu-themes" role="tablist">
-                          <li class="active">
-                            <input type="checkbox" name="themes" class="ninja" value="preset" checked="checked" />
-                            <a href="javascript:;" data-name="preset">Preset</a>
-                          </li>
-                          <li>
-                            <input type="checkbox" name="themes" class="ninja" value="custom" />
-                            <a href="javascript:;" data-name="custom">Custom</a>
-                          </li>
-                        </ul>
-                      </div>
+            <div class="form-section">
+              <label for="inputTheme" class="form-label">Themes</label>
+              <div class="row">
+                <div class="col-12 col-md-3 col-theme-menu">
+                  <ul class="nav nav-tabs nav-tabs-google nav-source menu-themes flex-md-column" role="tablist">
+                    <li class="nav-item active">
+                      <input type="radio" name="themes" class="ninja" value="preset" checked />
+                      <a href="#" class="nav-link active" data-name="preset">Preset</a>
+                    </li>
+                    <li class="nav-item">
+                      <input type="radio" name="themes" class="ninja" value="custom" />
+                      <a href="#" class="nav-link" data-name="custom">Custom</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-12 col-md-9" id="wc-theme-panels">
+                  <div class="wrap-themes-outer">
+                    <div class="itemwrap wrap-preset">
+                      <input type="hidden" name="inputTheme" id="inputTheme" value="1" />
+                      <div class="wrap-themes"></div>
                     </div>
-                    <div class="col-xs-12 col-md-9" id="wc-theme-panels">
 
-                      <div class="wrap-themes-outer">
-                        <div class="itemwrap wrap-preset" role="form">
-                          <input type="hidden" name="inputTheme" id="inputTheme" value="0" />
-                          <div class="wrap-themes"></div>
-                          <div style="clear:both;"></div>
+                    <div class="itemwrap wrap-custom d-none">
+                      <div class="mb-2">
+                        <label for="font-custom" class="form-label">Font</label>
+                        <div>
+                          <select id="font-custom" class="form-select form-select-sm" style="max-width: 240px;"></select>
+                        </div>
+                      </div>
+
+                      <div class="mb-2 item">
+                        <label class="form-label d-block">Background Color</label>
+                        <div class="wrap-action-result">
+                          <a href="#" class="color-result btn-pickcolor" id="btn-pickcolor" title="Select Color" data-current="Current Color"></a>
+
+                          <div class="input-group input-group-sm igroup-backcolor d-none">
+                            <span class="input-group-text">#</span>
+                            <input type="text" class="color-value form-control" id="value-pickcolor-background" maxlength="6" />
+                          </div>
+
+                          <button type="button" class="btn btn-xs btn-default btn-clear d-none" id="btn-clearcolor-bg">clear</button>
+                        </div>
+                        <div id="wrap-color-picker" class="wrap-color-picker d-none"></div>
+                      </div>
+
+                      <div class="mb-2">
+                        <label class="form-label d-block">Text Color</label>
+                        <div class="d-flex gap-3 mb-2">
+                          <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="fontcolor" id="fcolor-custom" value="custom" />
+                            <label class="form-check-label" for="fcolor-custom">Custom</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="fontcolor" id="fcolor-random" value="random" checked />
+                            <label class="form-check-label" for="fcolor-random">Sample Palette</label>
+                          </div>
                         </div>
 
-                        <div class="itemwrap wrap-custom hide" role="form">
-                          <div class="form-group">
-                            <label class="control-label">Font</label>
-                            <div class="controls">
-                              <div class="form-select font-list">
-                                <select id="font-custom" class="form-control">
-                                  <OptionDialogView::loadContent />
-                                </select>
-                                <span class="caret"></span>
-                              </div>
-                            </div>
-                          </div>
+                        <div class="wrap-color-custom d-none">
+                          <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link active" href="#lA" data-bs-toggle="tab" role="tab">
+                                <label for="tab-dual">
+                                  <input type="radio" class="form-check-input mt-0" id="tab-dual" name="customcolortab" value="dualtone" checked />
+                                  Dual-Tone
+                                </label>
+                              </a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                              <a class="nav-link" href="#lB" data-bs-toggle="tab" role="tab">
+                                <label for="tab-palette">
+                                  <input type="radio" class="form-check-input mt-0" id="tab-palette" name="customcolortab" value="palette" />
+                                  Palette
+                                </label>
+                              </a>
+                            </li>
+                          </ul>
 
-                          <div class="form-group">
-                            <label class="control-label">Background Color</label>
-                            <div class="controls item">
-                              <div class="wrap-action-result">
-                                <a class="color-result btn-pickcolor" id="btn-pickcolor" title="Select Color" data-current="Current Color"></a>
-                                
-                                <div class="input-prepend input-group igroup-backcolor hide">
-                                  <div class="input-group-addon">#</div>
-                                  <input type="text" class="color-value form-control inlineblock" id="value-pickcolor-background" maxlength="6" />
-                                </div>
-
-                                <input type="button" class="btn btn-xs btn-default btn-clear hide" id="btn-clearcolor" value="clear" />
-                              </div>
-
-                              <div id="wrap-color-picker" class="cp-default wrap-color-picker hide">
-                                <div class="picker-wrapper">
-                                  <div id="bg-colorpicker" class="picker"></div>
-                                  <div id="bg-colorpicker-indicator" class="picker-indicator"></div>
-                                </div>
-                                <div class="slide-wrapper">
-                                  <div id="bg-colorslide" class="slide"></div>
-                                  <div id="bg-colorslide-indicator" class="slide-indicator"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <label class="control-label">Text Color</label>
-                            <div class="controls">
-                              <label class="radio-inline">
-                                <input type="radio" name="fontcolor" id="fcolor-custom" value="custom" /> Custom
-                              </label>
-                              <label class="radio-inline">
-                                <input type="radio" name="fontcolor" id="fcolor-random" value="random" checked /> Sample Palette
-                              </label>
-
-                              <div class="wrap-color-custom hide">
-                                <div class="tabbable tabs-left">
-                                  <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#lA" data-toggle="tab">
-                                      <label class="radio" for="tab-dual"><input type="radio" id="tab-dual" name="customcolortab" value="dualtone" checked /> Dual-Tone</label>
-                                    </a></li>
-                                    <li><a href="#lB" data-toggle="tab">
-                                      <label class="radio" for="tab-palette"><input type="radio" id="tab-palette" name="custompalette" value="palette"/> Palette</label>
-                                    </a></li>
-                                  </ul>
-
-                                  <div class="tab-content">
-                                    <div class="tab-pane active" id="lA">
-                                      <div class="item">
-                                        <div class="label" title="Apply Highlight Color to N Topwords">N Topword</div> <input type="text" id="nword" class="form-control inlineblock" style="width: 35px;" maxlength="3" value="10" />
-
-                                        <label class="checkbox wspecificword" title="Apply Highlight Color to specific words">
-                                          <input type="checkbox" id="specific-word" />Specific Words
-                                        </label>
-                                        <div id="wrap-specific-wordlist" class="wrap-specific-wordlist hide">
-                                          <textarea id="specific-wordlist" class="form-control wordlist-spec code"></textarea>
-                                          <div class="help-block">Separate word by new line; word is NOT case-sensitive</div>
-                                        </div>
-                                      </div>
-                                      <div class="item">
-                                        <div class="label inlineblock">Highlighted Word</div>
-                                        
-                                        <div class="wrap-action-result">
-                                          <a class="color-result btn-pickcolor" id="btn-pickcolor-dualtone-topword" title="Select" data-current="Current"></a>
-
-                                          <div class="input-prepend input-group igroup-topword-color hide">
-                                            <div class="input-group-addon">#</div>
-                                            <input class="color-value form-control inlineblock" id="value-pickcolor-topword" type="text" maxlength="6"/>
-                                          </div>
-                                          <input type="button" class="btn btn-xs btn-default btn-clear hide" id="btn-clearcolor" value="clear" />
-                                        </div>
-
-                                        <div id="wrap-topword-picker" class="cp-default wrap-color-picker hide">
-                                          <div class="picker-wrapper">
-                                            <div class="picker"></div>
-                                            <div class="picker-indicator"></div>
-                                          </div>
-                                          <div class="slide-wrapper">
-                                            <div class="slide"></div>
-                                            <div class="slide-indicator"></div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <div class="item">
-                                        <div class="label inlineblock">Other Word</div>
-
-                                        <div class="wrap-action-result">
-                                          <a class="color-result btn-pickcolor" id="btn-pickcolor-dualtone-otherword" title="Select" data-current="Current"></a>
-
-                                          <div class="input-prepend input-group hide">
-                                            <div class="input-group-addon">#</div>
-                                            <input class="color-value form-control inlineblock" id="value-pickcolor-otherword" type="text" maxlength="6"/>
-                                          </div>
-                                          <input type="button" class="btn btn-xs btn-default btn-clear hide" id="btn-clearcolor" value="clear" />
-                                        </div>
-
-                                        <div id="wrap-topword-picker" class="cp-default wrap-color-picker hide">
-                                          <div class="picker-wrapper">
-                                            <div class="picker"></div>
-                                            <div class="picker-indicator"></div>
-                                          </div>
-                                          <div class="slide-wrapper">
-                                            <div class="slide"></div>
-                                            <div class="slide-indicator"></div>
-                                          </div>
-                                        </div>
-
-
-                                      </div>
-                                    </div><!--tab-pane-->
-
-                                    <div class="tab-pane" id="lB">
-                                      <div class="item">
-                                        <div class="label">Number of Color</div>
-                                        <div class="form-select inlineblock">
-                                          <select id="ncolor" class="form-control" style="width: 50px;">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4" selected>4</option>
-                                            <option value="5">5</option>
-                                          </select>
-                                          <span class="caret"></span>
-                                        </div>
-                                        <a href="http://www.colourlovers.com/palettes/search?query=provetools" target="_blank" class="btn btn-link btn-sm pull-right">
-                                          Find&nbsp;More&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i>
-                                        </a>
-                                      </div>
-                                      <div class="item">
-                                        <div id="wrap-pane1B"></div>
-                                      </div>
-
-                                      <script type="plain/text" id="tplcolorpick">
-                                        <div class="item">
-                                          <div class="wrap-action-result" style="margin-bottom:10px;">
-                                            <a class="color-result btn-pickcolor" id="{DYNAMIC_ID}" title="Select" data-current="Current"></a>
-
-                                            <div class="input-prepend input-group hide">
-                                              <div class="input-group-addon">#</div>
-                                              <input class="color-value form-control inlineblock" id="{VALUE_DYNAMIC_ID}" type="text" maxlength="6"/>
-                                            </div>
-                                            <input type="button" class="btn btn-xs btn-default btn-clear hide" id="btn-clearcolor" value="clear" />
-                                          </div>
-                                          <div id="{PICKER_WRAP}" class="cp-default wrap-color-picker hide">
-                                            <div class="picker-wrapper">
-                                              <div class="picker"></div>
-                                              <div class="picker-indicator"></div>
-                                            </div>
-                                            <div class="slide-wrapper">
-                                              <div class="slide"></div>
-                                              <div class="slide-indicator"></div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </script>
-                                    </div><!--tab-pane-->
+                          <div class="tab-content">
+                            <div class="tab-pane active" id="lA" role="tabpanel">
+                              <div class="item">
+                                <div class="d-flex flex-wrap align-items-center gap-2">
+                                  <span class="badge text-bg-secondary" title="Apply Highlight Color to N Topwords">N Topword</span>
+                                  <input type="text" id="nword" class="form-control form-control-sm d-inline-block" style="width: 50px;" maxlength="3" value="10" />
+                                  <div class="form-check ms-2 mb-0" title="Apply Highlight Color to specific words">
+                                    <input type="checkbox" class="form-check-input" id="specific-word" />
+                                    <label class="form-check-label" for="specific-word">Specific Words</label>
                                   </div>
-                                </div> <!-- /tabbable -->
+                                </div>
+                                <div id="wrap-specific-wordlist" class="wrap-specific-wordlist mt-2 d-none">
+                                  <textarea id="specific-wordlist" class="form-control wordlist-spec code" rows="4"></textarea>
+                                  <div class="form-text">Separate word by new line; word is NOT case-sensitive</div>
+                                </div>
                               </div>
 
-                              <div class="wrap-color-random"></div>
+                              <div class="item">
+                                <div class="mb-1"><span class="badge text-bg-secondary">Highlighted Word</span></div>
+                                <div class="wrap-action-result">
+                                  <a href="#" class="color-result btn-pickcolor" id="btn-pickcolor-dualtone-topword" title="Select" data-current="Current"></a>
+                                  <div class="input-group input-group-sm igroup-topword-color d-none">
+                                    <span class="input-group-text">#</span>
+                                    <input class="color-value form-control" id="value-pickcolor-topword" type="text" maxlength="6" />
+                                  </div>
+                                  <button type="button" class="btn btn-xs btn-default btn-clear d-none" id="btn-clearcolor-topword">clear</button>
+                                </div>
+                                <div id="wrap-topword-picker" class="wrap-color-picker d-none"></div>
+                              </div>
+
+                              <div class="item">
+                                <div class="mb-1"><span class="badge text-bg-secondary">Other Word</span></div>
+                                <div class="wrap-action-result">
+                                  <a href="#" class="color-result btn-pickcolor" id="btn-pickcolor-dualtone-otherword" title="Select" data-current="Current"></a>
+                                  <div class="input-group input-group-sm d-none">
+                                    <span class="input-group-text">#</span>
+                                    <input class="color-value form-control" id="value-pickcolor-otherword" type="text" maxlength="6" />
+                                  </div>
+                                  <button type="button" class="btn btn-xs btn-default btn-clear d-none" id="btn-clearcolor-otherword">clear</button>
+                                </div>
+                                <div id="wrap-otherword-picker" class="wrap-color-picker d-none"></div>
+                              </div>
+                            </div>
+
+                            <div class="tab-pane" id="lB" role="tabpanel">
+                              <div class="item d-flex align-items-center justify-content-between gap-2">
+                                <div class="d-flex align-items-center gap-2">
+                                  <span class="badge text-bg-secondary">Number of Color</span>
+                                  <select id="ncolor" class="form-select form-select-sm" style="width: 65px;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4" selected>4</option>
+                                    <option value="5">5</option>
+                                  </select>
+                                </div>
+                                <a href="https://www.colourlovers.com/palettes" target="_blank" rel="noopener noreferrer" class="btn btn-link btn-sm">
+                                  Find More <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                                </a>
+                              </div>
+                              <div id="wrap-pane1B"></div>
+
+                              <template id="tplcolorpick">
+                                <div class="item">
+                                  <div class="wrap-action-result">
+                                    <a href="#" class="color-result btn-pickcolor" title="Select" data-current="Current"></a>
+                                    <div class="input-group input-group-sm d-none">
+                                      <span class="input-group-text">#</span>
+                                      <input class="color-value form-control" type="text" maxlength="6" />
+                                    </div>
+                                    <button type="button" class="btn btn-xs btn-default btn-clear d-none">clear</button>
+                                  </div>
+                                  <div class="wrap-color-picker d-none"></div>
+                                </div>
+                              </template>
                             </div>
                           </div>
                         </div>
+
+                        <div class="wrap-color-random"></div>
                       </div>
                     </div>
-                    <div class=clearfix></div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="inputShape">Shape</label>
-                <div class="controls">
-                  <input type="hidden" name="inputShape" id="inputShape" value="0" />
-                  <div class="wrap-shapes">
-                    <div class="shape selected" data-shape="0">
-                      <img src="statics/wcloud/images/opt-shape/elipses-th.png" />
-                      <div class="text">Circle</div>
-                    </div>
-                    <div class="shape" data-shape="1">
-                      <img src="statics/wcloud/images/opt-shape/square-th.png" />
-                      <div class="text">square</div>
-                    </div>
-                    <div class="shape" data-shape="2">
-                      <img src="statics/wcloud/images/opt-shape/triangle-th.png" />
-                      <div class="text">triangle</div>
-                    </div>
-                    <div class="shape" data-shape="3">
-                      <img src="statics/wcloud/images/opt-shape/star-th.png" />
-                      <div class="text">star</div>
-                    </div>
-                    <div class="shape" data-shape="4">
-                      <img src="statics/wcloud/images/opt-shape/pentagon-th.png" />
-                      <div class="text">pentagon</div>
-                    </div>
-                    <div class="shape" data-shape="5">
-                      <img src="statics/wcloud/images/opt-shape/pentagon-th.png" />
-                      <div class="text">love</div>
-                    </div>
-                  </div>
+            <div class="form-section">
+              <label for="inputShape" class="form-label">Shape</label>
+              <input type="hidden" name="inputShape" id="inputShape" value="0" />
+              <div class="wrap-shapes">
+                <div class="shape selected" data-shape="0">
+                  <img src="./build/images/opt-shape/elipses-th.png" alt="Circle" />
+                  <div class="text">Circle</div>
+                </div>
+                <div class="shape" data-shape="1">
+                  <img src="./build/images/opt-shape/square-th.png" alt="Square" />
+                  <div class="text">Square</div>
+                </div>
+                <div class="shape" data-shape="2">
+                  <img src="./build/images/opt-shape/triangle-th.png" alt="Triangle" />
+                  <div class="text">Triangle</div>
+                </div>
+                <div class="shape" data-shape="3">
+                  <img src="./build/images/opt-shape/star-th.png" alt="Star" />
+                  <div class="text">Star</div>
+                </div>
+                <div class="shape" data-shape="4">
+                  <img src="./build/images/opt-shape/pentagon-th.png" alt="Pentagon" />
+                  <div class="text">Pentagon</div>
+                </div>
+                <div class="shape" data-shape="5">
+                  <img src="./build/images/opt-shape/love-th.svg" alt="Love" />
+                  <div class="text">Love</div>
                 </div>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="inputPanel">Panel</label>
-                <div class="controls">
-                  <div class="form-select inlineblock">
-                    <select id="panel-possition" class="form-control panel-pos" style="min-width:160px; max-width:220px;">
-                      <option value="fixed-bottom-left">Bottom Left</option>
-                      <option value="fixed-bottom">Bottom Center</option>
-                      <option value="fixed-top">Top Center</option>
-                    </select>
-                    <span class="caret"></span>
-                  </div>
-                </div>
+            <div class="form-section">
+              <label for="panel-possition" class="form-label">Panel</label>
+              <div>
+                <select id="panel-possition" class="form-select form-select-sm panel-pos" style="max-width: 220px;">
+                  <option value="fixed-bottom-left">Bottom Left</option>
+                  <option value="fixed-bottom">Bottom Center</option>
+                  <option value="fixed-top">Top Center</option>
+                </select>
               </div>
+            </div>
 
-              <div class="form-group">
-                <label for="inputPanel">Normalize</label>
-                <div class="controls">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" id="skew-normalize" /> Cosinus approximation
-                    </label>
-                  </div>
-                  <input type="text" class="form-control skewvalue" id="skew-treshold" value=".5" title="Skewness Curve Treshold, ValidValue: [0, .5] " style="width: 80px" disabled/>
+            <div class="form-section mb-0">
+              <label class="form-label d-block">Normalize</label>
+              <div class="d-flex flex-wrap align-items-center gap-3">
+                <div class="form-check mb-0">
+                  <input type="checkbox" class="form-check-input" id="skew-normalize" />
+                  <label class="form-check-label" for="skew-normalize">Cosinus approximation</label>
                 </div>
-                <div class=clearfix></div>
+                <input
+                  type="text"
+                  class="form-control form-control-sm skewvalue"
+                  id="skew-treshold"
+                  value="0.5"
+                  title="Skewness Curve Threshold, Valid Value: [0, 0.5]"
+                  style="width: 80px;"
+                  disabled
+                />
               </div>
-            </div><!--role:form-->
-          </div><!--wc-option-content-->
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          <button data-l10n-id="option-dialog-close-btn" id="wc-option-close-btn" class="btn btn-default btn-close"></button>
-          <button data-l10n-id="option-dialog-apply-btn" id="wc-option-apply-btn" class="btn btn-primary"></button>
+          <button type="button" data-l10n-id="option-dialog-close-btn" id="wc-option-close-btn" class="btn btn-default"></button>
+          <button type="button" data-l10n-id="option-dialog-apply-btn" id="wc-option-apply-btn" class="btn btn-primary"></button>
         </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+      </div>
+    </div>
+  </div>
 
-
-  <!-- fuckin-js-igniter, reanimate the dead hollow -->
-  <script src="statics/wcloud/start.js" defer></script>
+  <!-- Unsupported Browser Banner -->
+  <div id="wc-browser-support" hidden>
+    <div class="container">
+      <div class="alert alert-danger">
+        <h4 data-l10n-id="browser-support-title"></h4>
+        <span data-l10n-id="browser-support-message"></span>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
